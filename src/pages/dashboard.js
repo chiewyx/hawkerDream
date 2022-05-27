@@ -12,32 +12,34 @@ import {
   Stack,
   Button,
   Heading,
+  Select,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Dashboard() {
   //const { user } = useAuth()
   const user = supabase.auth.user();
-  const session = supabase.auth.session()
+  const session = supabase.auth.session();
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState(null);
-  const [first_name, setFirstName] = useState(null);
-  const [last_name, setLastName] = useState(null);
-  const [avatar_url, setAvatarUrl] = useState(null);
+  const [username, setUsername] = useState();
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
+  const [avatar_url, setAvatarUrl] = useState();
+  const [profile_type, setProfileType] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  async function getProfile(e) {
-    e.preventDefault();
+  async function getProfile() {
+    //e.preventDefault();
     try {
       setLoading(true);
       const user = supabase.auth.user();
 
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, first_name, last_name, avatar_url`)
+      const { data, error, status } = await supabase
+        .from("user_profiles")
+        .select(`username, first_name, last_name, profile_type`)
         .eq("id", user.id)
         .single();
 
@@ -50,6 +52,7 @@ export default function Dashboard() {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setAvatarUrl(data.avatar_url);
+        setProfileType(data.profile_type)
       }
     } catch (error) {
       alert(error.message);
@@ -57,6 +60,11 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   async function updateProfile(e) {
     e.preventDefault();
     try {
@@ -68,11 +76,11 @@ export default function Dashboard() {
         username,
         first_name,
         last_name,
-        avatar_url,
+        profile_type,
         updated_at: new Date(),
       };
 
-      let { error } = await supabase.from("profiles").upsert(updates, {
+      let { error } = await supabase.from("user_profiles").upsert(updates, {
         returning: "minimal", // Don't return the value after inserting
       });
 
@@ -88,10 +96,10 @@ export default function Dashboard() {
 
   return (
     <div>
-    
-      <h1> welcome {user?.first_name}</h1>
+      <Heading> welcome {first_name}</Heading>
+      <Heading> welcome {profile_type}</Heading>
       <form onSubmit={updateProfile}>
-        <Heading>Email: {session.user.first_name} </Heading>
+        <Heading>Email: {session.user.email} </Heading>
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}
@@ -99,7 +107,21 @@ export default function Dashboard() {
           p={8}
         >
           <Stack spacing={4}>
+            <Select placeholder="Select profile" onChange={(e) => setProfileType(e.target.value)}>
+              <option value="hawker">Hawker</option>
+              <option value="supplier">Supplier</option>
+            </Select>
             <HStack>
+              <Box>
+                <FormControl id="username" isRequired>
+                  <FormLabel>username</FormLabel>
+                  <Input
+                    type="text"
+                    value={username || ""}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </FormControl>
+              </Box>
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>

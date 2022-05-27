@@ -14,6 +14,7 @@ import {
   Heading,
   Spacer,
   Text,
+  Select,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
@@ -27,18 +28,30 @@ export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
+  const [profile_type, setProfileType] = useState();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp(
+      { email, password },
+      {
+        data: {
+          first_name,
+          last_name,
+          profile_type
+        },
+      }
+    );
     if (error) {
       alert("error signing in");
     } else {
       // Redirect user to Dashboard
-      navigate("/dashboard");
+      navigate("/login");
     }
   }
   return (
@@ -52,8 +65,8 @@ export default function SignupCard() {
           bg={useColorModeValue("gray.50", "gray.800")}
         >
           <Stack direction={"row"} alignItems="flex-start" spacing={300}>
-            <VStack alignItems={"center"} py={12} px={6} spacing={50}>
-              <Heading fontSize="4xl" color="black" fontFamily="sans-serif" textAlign={"center"}>
+            <VStack alignItems={"center"} py={150} px={6} spacing={50}>
+              <Heading fontSize="4xl" color="black" textAlign={"center"}>
                 One-stop solution for hawkers <Spacer /> and suppliers to
                 connect
               </Heading>
@@ -79,17 +92,29 @@ export default function SignupCard() {
                 p={8}
               >
                 <Stack spacing={4}>
+                  <Select placeholder="Select profile" onChange={(e) => setProfileType(e.target.value)}>
+                    <option value="hawker">Hawker</option>
+                    <option value="supplier">Supplier</option>
+                  </Select>
                   <HStack>
                     <Box>
                       <FormControl id="firstName" isRequired>
                         <FormLabel>First Name</FormLabel>
-                        <Input type="text" />
+                        <Input
+                          type="text"
+                          value={first_name}
+                          onChange={(e) => setFirstName(e.target.value)}
+                        />
                       </FormControl>
                     </Box>
                     <Box>
                       <FormControl id="lastName">
                         <FormLabel>Last Name</FormLabel>
-                        <Input type="text" />
+                        <Input
+                          type="text"
+                          value={last_name}
+                          onChange={(e) => setLastName(e.target.value)}
+                        />
                       </FormControl>
                     </Box>
                   </HStack>
