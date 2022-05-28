@@ -108,7 +108,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { Link as ReactRouterLink} from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { supabase } from "../supabase";
 import { useNavigate } from "react-router-dom";
 import WithSubnavigation from "../components/navbar";
@@ -142,9 +142,9 @@ export default function SimpleCard() {
           justify={"center"}
           bg={useColorModeValue("gray.50", "brand.80")}
         >
-          <Stack direction={"row"} alignItems="flex-start" spacing={371.5} >
-          <VStack alignItems={"center"} py={150} px={6} spacing={50} >
-              <Heading fontSize="4xl"  textAlign={"center"}>
+          <Stack direction={"row"} alignItems="flex-start" spacing={371.5}>
+            <VStack alignItems={"center"} py={150} px={6} spacing={50}>
+              <Heading fontSize="4xl" textAlign={"center"}>
                 One-stop solution for hawkers <Spacer /> and suppliers to
                 connect
               </Heading>
@@ -198,7 +198,11 @@ export default function SimpleCard() {
                   <Stack pt={6}>
                     <Text align={"center"}>
                       Not a user?{" "}
-                      <Link as={ReactRouterLink} to='/signup' color={"blue.400"}>
+                      <Link
+                        as={ReactRouterLink}
+                        to="/signup"
+                        color={"blue.400"}
+                      >
                         Sign up
                       </Link>
                     </Text>

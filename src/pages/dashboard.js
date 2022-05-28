@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+//import UserProfileEdit from "../components/update";
 
 export default function Dashboard() {
   //const { user } = useAuth()
@@ -52,7 +53,7 @@ export default function Dashboard() {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setAvatarUrl(data.avatar_url);
-        setProfileType(data.profile_type)
+        setProfileType(data.profile_type);
       }
     } catch (error) {
       alert(error.message);
@@ -107,7 +108,10 @@ export default function Dashboard() {
           p={8}
         >
           <Stack spacing={4}>
-            <Select placeholder="Select profile" onChange={(e) => setProfileType(e.target.value)}>
+            <Select
+              placeholder="Select profile"
+              onChange={(e) => setProfileType(e.target.value)}
+            >
               <option value="hawker">Hawker</option>
               <option value="supplier">Supplier</option>
             </Select>

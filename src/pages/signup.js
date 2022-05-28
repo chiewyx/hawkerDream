@@ -43,7 +43,7 @@ export default function SignupCard() {
         data: {
           first_name,
           last_name,
-          profile_type
+          profile_type,
         },
       }
     );
@@ -92,7 +92,10 @@ export default function SignupCard() {
                 p={8}
               >
                 <Stack spacing={4}>
-                  <Select placeholder="Select profile" onChange={(e) => setProfileType(e.target.value)}>
+                  <Select
+                    placeholder="Select profile"
+                    onChange={(e) => setProfileType(e.target.value)}
+                  >
                     <option value="hawker">Hawker</option>
                     <option value="supplier">Supplier</option>
                   </Select>

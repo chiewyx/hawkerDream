@@ -71,11 +71,7 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Button
-            variant={"link"}
-            as={ReactRouterLink}
-            to="/"
-            >
+          <Button variant={"link"} as={ReactRouterLink} to="/">
             <img src={mainlogo} width={60} height={50} alt="hawkerTown" />
           </Button>
           <Flex display={{ base: "none", md: "flex" }} ml={10} py={{ base: 4 }}>

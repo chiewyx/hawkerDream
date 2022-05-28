@@ -72,8 +72,6 @@ export default function LandingPage() {
                 </Button>
               </VStack>
             </Center>
-
-            
           </VStack>
         </Center>
       </Flex>
