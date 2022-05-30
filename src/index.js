@@ -7,17 +7,28 @@ import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/auth";
+import "@fontsource/smooch"; 
 
 const colors = {
   brand: {
     900: "#1a365d",
     800: "#153e75",
     700: "#2a69ac",
+<<<<<<< HEAD
     90: "#FFB905",
+=======
+    90: "#FFB905"
+>>>>>>> 64a406af94d91254c37e052fe7cbb6b12e4e8175
   },
 };
 
-const theme = extendTheme({ colors });
+const fonts = {
+  brand: {
+    heading: "Smooch"
+  }, 
+}; 
+
+const theme = extendTheme({ colors, fonts });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
