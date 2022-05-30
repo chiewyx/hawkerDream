@@ -62,7 +62,7 @@ export default function SignupCard() {
           minH={"100vh"}
           align={"top"}
           justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
+          bg={useColorModeValue("brand.90", "gray.800")}
         >
           <Stack direction={"row"} alignItems="flex-start" spacing={300}>
             <VStack alignItems={"center"} py={150} px={6} spacing={50}>

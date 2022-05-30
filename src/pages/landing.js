@@ -6,13 +6,10 @@ import {
   //Grid,
   //GridItem,
   VStack,
-  StackDivider,
   Button,
   Text,
   Flex,
   Heading,
-  //Divider,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 export default function LandingPage() {
@@ -23,14 +20,10 @@ export default function LandingPage() {
         minH={"91.5vh"}
         align={"top"}
         justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bgGradient="linear(to-t, yellow.100, brand.90)"
       >
         <Center>
-          <VStack
-            divider={<StackDivider borderColor="gray.50" />}
-            spacing={4}
-            align="top"
-          >
+          <VStack spacing={4} align="top">
             <Heading
               fontSize="4xl"
               color="black"
@@ -44,14 +37,8 @@ export default function LandingPage() {
               order managing system <Spacer /> and connect with fellow hawkers
               and suppliers.
             </Text>
-            <Spacer />
-
             <Center>
-              <VStack
-                divider={<StackDivider borderColor="gray.50" />}
-                spacing={4}
-                align="stretch"
-              >
+              <VStack spacing={4} align="stretch">
                 <Button
                   colorScheme="blue"
                   variant="outline"
