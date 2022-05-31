@@ -66,6 +66,8 @@ export default function SignupCard() {
         >
           <Stack direction={"row"} alignItems="flex-start" spacing={300}>
             <VStack alignItems={"center"} py={150} px={6} spacing={50}>
+              <Spacer />
+
               <Heading fontSize="4xl" color="black" textAlign={"center"}>
                 One-stop solution for hawkers <Spacer /> and suppliers to
                 connect
