@@ -16,9 +16,13 @@ import {
   Text,
   useColorModeValue,
   Flex,
+  VStack,
+  Image,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import mainlogo from "../logo.jpg";
 //import UserProfileEdit from "../components/update";
 
 export default function Dashboard() {
@@ -99,14 +103,53 @@ export default function Dashboard() {
   return (
     <div>
       <Simple />
-      <Flex
-          minH={"100vh"}
-          align={"top"}
-          justify={"center"}
-          bg={"gray.50"}
+      <Flex minH={"100vh"} align={"top"} justify={"center"} bg={"gray.50"}>
+        <Flex
+          w={"full"}
+          h={"40vh"}
+          backgroundImage={
+            "url(https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80)"
+          }
+          backgroundSize={"cover"}
+          backgroundPosition={"center center"}
         >
-
+          <VStack
+            w={"full"}
+            justify={"center"}
+            px={useBreakpointValue({ base: 4, md: 8 })}
+            bgGradient={"linear(to-r, blackAlpha.600, transparent)"}
+          >
+            <Stack maxW={"2xl"} align={"flex-start"} spacing={6}>
+              <Text
+                color={"white"}
+                fontWeight={700}
+                lineHeight={1.2}
+                fontSize={useBreakpointValue({ base: "3xl", md: "4xl" })}
+              >
+                Welcome back {first_name}
+              </Text>
+              <Stack direction={"row"}>
+                <Button
+                  bg={"blue.400"}
+                  rounded={"full"}
+                  color={"white"}
+                  _hover={{ bg: "blue.500" }}
+                >
+                  Show me more
+                </Button>
+                <Button
+                  bg={"whiteAlpha.300"}
+                  rounded={"full"}
+                  color={"white"}
+                  _hover={{ bg: "whiteAlpha.500" }}
+                >
+                  Show me more
+                </Button>
+              </Stack>
+            </Stack>
+          </VStack>
         </Flex>
+      </Flex>
     </div>
   );
 }
