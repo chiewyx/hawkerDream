@@ -15,6 +15,7 @@ import {
   Select,
   Text,
   useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -97,75 +98,15 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Heading> welcome {first_name}</Heading>
-      <Heading> welcome {profile_type}</Heading>
-      <form onSubmit={updateProfile}>
-        <Heading>Email: {session.user.email} </Heading>
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}
-        >
-          <Stack spacing={4}>
-            <Select
-              placeholder="Select profile"
-              onChange={(e) => setProfileType(e.target.value)}
-            >
-              <option value="hawker">Hawker</option>
-              <option value="supplier">Supplier</option>
-            </Select>
-            <HStack>
-              <Box>
-                <FormControl id="username" isRequired>
-                  <FormLabel>username</FormLabel>
-                  <Input
-                    type="text"
-                    value={username || ""}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input
-                    type="text"
-                    value={first_name || ""}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
-                  <Input
-                    type="text"
-                    value={last_name || ""}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </FormControl>
-              </Box>
-            </HStack>
-
-            <Stack spacing={10} pt={2}>
-              <Button
-                type="submit"
-                loadingText="Submitting"
-                size="lg"
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-              >
-                update profile
-              </Button>
-            </Stack>
-          </Stack>
-        </Box>
-      </form>
       <Simple />
+      <Flex
+          minH={"100vh"}
+          align={"top"}
+          justify={"center"}
+          bg={"gray.50"}
+        >
+
+        </Flex>
     </div>
   );
 }

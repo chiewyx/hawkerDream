@@ -15,6 +15,7 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Text
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { supabase } from "../supabase";
@@ -22,10 +23,32 @@ import { useNavigate } from "react-router-dom";
 import mainlogo from "../logo.jpg";
 import { Link as ReactRouterLink } from "react-router-dom";
 
-const Links = ["Dashboard", "Invoice Management", "Marketplace"];
+//const Links = ["Dashboard", "Invoice Management", "Marketplace"];
+const Links = [
+  
+]
+const NAV_ITEMS = [
+  {
+    label: "Dashboard",
+    to: '/dashboard'
+  },
+  {
+    label: "Invoice management",
+    to: '/invoice'
+  },
+  {
+    label: "Marketplace",
+    to: '/marketplace'
+  },
+  {
+    label: "Orders",
+    to: '/orders'
+  }
+];
 
-const NavLink = ({ children }) => (
+const NavLink = ({label, to}) => (
   <Link
+    as={ReactRouterLink}
     px={2}
     py={1}
     rounded={"md"}
@@ -33,9 +56,10 @@ const NavLink = ({ children }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}
+    //href={"#"}
+    to={to}
   >
-    {children}
+    {label}
   </Link>
 );
 
@@ -60,14 +84,22 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <img src={mainlogo} width={60} height={50} alt="hawkerTown" />
+          <Text
+                fontSize="5xl"
+                textAlign={"center"}
+                fontFamily="brand.heading"
+                color="gray.700"
+              >
+                {" "}
+                HawkerTown{" "}
+              </Text>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {NAV_ITEMS.map((navItem) => (
+                <NavLink key={navItem.label} {...navItem} />
               ))}
             </HStack>
           </HStack>
