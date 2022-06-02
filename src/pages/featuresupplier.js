@@ -11,10 +11,12 @@ import {
   Box,
   Center,
   Spacer,
+  HStack,
 } from "@chakra-ui/react";
 
 import order from "../order.jpg";
-import marketplace from "../marketplace.jpg";
+import supplier from "../supplier.jpg";
+import speechbubble from "../test.jpg";
 
 import WithSubnavigation from "../components/navbar";
 
@@ -65,19 +67,26 @@ function Orders() {
       </Center>
       <Collapse in={isOpen} animateOpacity>
         <Box p="40px" color="black" mt="4" bg="white" rounded="md" shadow="md">
-          <Text>
-            {" "}
-            No more missing your customers' orders with our order management
-            sytem! Update the progress of your orders with a click of a button!
-          </Text>
-          <Spacer/> 
-          <Image
-            rounded={"md"}
-            alt={"feature image"}
-            src={order}
-            width={700}
-            height={400}
-          />
+          <Spacer />
+          <HStack>
+            <Image
+              rounded={"md"}
+              alt={"feature image"}
+              src={order}
+              width={700}
+              height={400}
+            />
+            <Box>
+              <Spacer />
+              <Spacer />
+              <Image
+                rounded={"md"}
+                alt={"feature image"}
+                src={speechbubble}
+                boxSize="300px"
+              />
+            </Box>
+          </HStack>
         </Box>
       </Collapse>
     </>
@@ -103,7 +112,7 @@ function Chat() {
       <Collapse in={isOpen} animateOpacity>
         <Box p="40px" color="black" mt="4" bg="white" rounded="md" shadow="md">
           <Text>
-            No more jumping around apps to communicate with your customers! 
+            No more jumping around apps to communicate with your customers!
             <Spacer /> HawkerTown allows you to connect with your suppliers on{" "}
             <strong> one and only one </strong> platform!{" "}
           </Text>
@@ -121,7 +130,7 @@ export default function SplitWithImage() {
         minH={"100vh"}
         align={"top"}
         justify={"center"}
-        bgGradient="linear(to-b, yellow.100, brand.90)"
+        bgGradient="linear(to-b, orange.50, brand.90)"
       >
         <Center>
           <Stack spacing={4}>
