@@ -11,9 +11,11 @@ import {
   Box,
   Center,
   Spacer,
+  HStack,
 } from "@chakra-ui/react";
 
 import invoice from "../invoice.jpg";
+import hawkerInvoice from "../hawkerInvoice.jpg"
 import WithSubnavigation from "../components/navbar";
 
 // import { ReactElement } from 'react';
@@ -64,10 +66,13 @@ function Invoice() {
       </Center>
       <Collapse in={isOpen} animateOpacity>
         <Box p="40px" color="black" mt="4" bg="white" rounded="md" shadow="md">
-          <Text>
-            Sort your invoices by suppliers and view your total expenses of the
-            month with a click of a button{" "}
-          </Text>
+        <HStack>
+        <Image
+            rounded={"md"}
+            alt={"feature image"}
+            src={hawkerInvoice}
+            boxSize= "300px"
+          />
           <Spacer/> 
           <Image
             rounded={"md"}
@@ -76,6 +81,7 @@ function Invoice() {
             width={700}
             height={400}
           />
+          </HStack>
         </Box>
       </Collapse>
     </>
