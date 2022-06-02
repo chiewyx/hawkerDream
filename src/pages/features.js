@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 import invoice from "../invoice.jpg";
-import marketplace from "../marketplace.jpg";
 import WithSubnavigation from "../components/navbar";
 
 // import { ReactElement } from 'react';
@@ -133,7 +132,7 @@ export default function SplitWithImage() {
         minH={"100vh"}
         align={"top"}
         justify={"center"}
-        bgGradient="linear(to-b, yellow.100, brand.90)"
+        bgGradient="linear(to-b, orange.50, brand.90)"
       >
         <Center>
           <Stack spacing={4}>

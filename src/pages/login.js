@@ -140,10 +140,11 @@ export default function SimpleCard() {
           minH={"100vh"}
           align={"top"}
           justify={"center"}
-          bg={useColorModeValue("brand.90", "brand.80")}
+          bg={useColorModeValue("gray.50", "brand.80")}
         >
           <Stack direction={"row"} alignItems="flex-start" spacing={371.5}>
             <VStack alignItems={"center"} py={150} px={6} spacing={50}>
+            <Spacer/> 
               <Heading fontSize="4xl" textAlign={"center"}>
                 One-stop solution for hawkers <Spacer /> and suppliers to
                 connect

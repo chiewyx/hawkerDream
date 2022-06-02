@@ -20,39 +20,51 @@ export default function LandingPage() {
         minH={"91.5vh"}
         align={"top"}
         justify={"center"}
-        bgGradient="linear(to-t, yellow.100, brand.90)"
+        bgGradient="linear(to-b, orange.50, brand.90)"
       >
         <Center>
           <VStack spacing={4} align="top">
-            <Heading
-              fontSize="4xl"
-              color="black"
-              fontFamily="sans-serif"
+            <Text
+              fontSize="5xl"
+              color="orange.700"
+              fontFamily="system-ui"
               textAlign={"center"}
+              fontWeight="extrabold"
             >
-              One-stop solution for hawkers <Spacer /> and suppliers to connect
-            </Heading>
-            <Text fontSize="lg" textAlign={"center"}>
-              Join HawkerTown today to gain access to <Spacer /> our invoice,
-              order managing system <Spacer /> and connect with fellow hawkers
+              One-stop solution
+              <Text
+                fontSize="5xl"
+                color="gray.700"
+                fontFamily="system-ui"
+                textAlign={"center"}
+                fontWeight="extrabold"
+              >
+                for hawkers <Spacer /> and suppliers to connect{" "}
+              </Text>
+            </Text>
+            <Text fontSize="lg" textAlign={"center"} fontWeight= "light" >
+              Join HawkerTown today to gain access to our invoice,<Spacer /> 
+              order managing system and connect with fellow hawkers
               and suppliers.
             </Text>
+            <Spacer />
+            <Spacer />
             <Center>
               <VStack spacing={4} align="stretch">
                 <Button
-                  colorScheme="blue"
+                  colorScheme="gray.700"
                   variant="outline"
                   height="70px"
-                  width="300px"
+                  width="400px"
                   border="2px"
                 >
                   Join as Hawker
                 </Button>
                 <Button
-                  colorScheme="blue"
+                  colorScheme="gray.700"
                   variant="outline"
                   height="70px"
-                  width="300px"
+                  width="400px"
                   border="2px"
                 >
                   Join as Supplier

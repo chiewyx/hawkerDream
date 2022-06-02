@@ -75,10 +75,11 @@ export default function Dashboard() {
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
             <Button variant={"link"} as={ReactRouterLink} to="/">
               <Text
-                fontSize="5xl"
+                fontSize="4xl"
                 textAlign={"center"}
-                fontFamily="brand.heading"
-                color="gray.700"
+                fontFamily="Gill Sans"
+                color="gray.600"
+                fontWeight={"light"}
               >
                 {" "}
                 HawkerTown{" "}
