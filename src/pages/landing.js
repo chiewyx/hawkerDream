@@ -17,7 +17,7 @@ export default function LandingPage() {
     <div className="LandingPage">
       <WithSubnavigation />
       <Flex
-        minH={"91.5vh"}
+        minH={"100vh"}
         align={"top"}
         justify={"center"}
         bgGradient="linear(to-b, orange.50, brand.90)"
