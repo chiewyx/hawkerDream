@@ -15,7 +15,7 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { supabase } from "../supabase";
@@ -24,29 +24,27 @@ import mainlogo from "../logo.jpg";
 import { Link as ReactRouterLink } from "react-router-dom";
 
 //const Links = ["Dashboard", "Invoice Management", "Marketplace"];
-const Links = [
-  
-]
+const Links = [];
 const NAV_ITEMS = [
   {
     label: "Dashboard",
-    to: '/dashboard'
+    to: "/dashboard",
   },
   {
     label: "Invoice management",
-    to: '/invoice'
+    to: "/invoice",
   },
   {
     label: "Marketplace",
-    to: '/marketplace'
+    to: "/marketplace",
   },
   {
     label: "Orders",
-    to: '/orders'
-  }
+    to: "/order",
+  },
 ];
 
-const NavLink = ({label, to}) => (
+const NavLink = ({ label, to }) => (
   <Link
     as={ReactRouterLink}
     px={2}
@@ -84,15 +82,18 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-          <Text
-                fontSize="5xl"
+            <Button variant={"link"} as={ReactRouterLink} to="/dashboard">
+              <Text
+                fontSize="4xl"
                 textAlign={"center"}
-                fontFamily="brand.heading"
-                color="gray.700"
+                fontFamily="Gill Sans"
+                color="gray.600"
+                fontWeight={"light"}
               >
                 {" "}
                 HawkerTown{" "}
               </Text>
+            </Button>
             <HStack
               as={"nav"}
               spacing={4}
@@ -120,7 +121,11 @@ export default function Simple() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem as={ReactRouterLink} variant="link" to="/dashboard/update">
+                <MenuItem
+                  as={ReactRouterLink}
+                  variant="link"
+                  to="/dashboard/update"
+                >
                   Update Profile
                 </MenuItem>
                 <MenuItem>Link 2</MenuItem>
