@@ -2,27 +2,16 @@ import Simple from "../components/profilebar";
 import { useAuth } from "../contexts/auth";
 import { supabase } from "../supabase";
 import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  HStack,
-  InputRightElement,
   Stack,
   Button,
-  Heading,
-  Select,
   Text,
-  useColorModeValue,
   Flex,
   VStack,
-  Image,
-  useBreakpointValue
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import mainlogo from "../logo.jpg";
+//import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+//import mainlogo from "../logo.jpg";
 //import UserProfileEdit from "../components/update";
 
 export default function Dashboard() {
@@ -33,9 +22,9 @@ export default function Dashboard() {
   const [username, setUsername] = useState();
   const [first_name, setFirstName] = useState();
   const [last_name, setLastName] = useState();
-  const [avatar_url, setAvatarUrl] = useState();
+  //const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
-  const [showPassword, setShowPassword] = useState(false);
+  //const [showPassword, setShowPassword] = useState(false);
 
   async function getProfile() {
     //e.preventDefault();
@@ -57,7 +46,6 @@ export default function Dashboard() {
         setUsername(data.username);
         setFirstName(data.first_name);
         setLastName(data.last_name);
-        setAvatarUrl(data.avatar_url);
         setProfileType(data.profile_type);
       }
     } catch (error) {

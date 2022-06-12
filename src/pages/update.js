@@ -13,6 +13,7 @@ import {
   AvatarBadge,
   IconButton,
   Center,
+  useToast
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { useAuth } from "../contexts/auth";
@@ -30,6 +31,7 @@ export default function UserProfileEdit() {
   const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
   const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
 
   async function getProfile() {
     //e.preventDefault();
@@ -196,6 +198,15 @@ export default function UserProfileEdit() {
                   bg: "blue.500",
                 }}
                 type="submit"
+                onClick={() =>
+                  toast({
+                    title: "Profile updated",
+                    description: "You've updated your profile successfully",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  })
+                }
               >
                 Update
               </Button>
