@@ -1,4 +1,11 @@
-import { Button, Flex, Grid, Heading, HStack, TabIndicator } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  TabIndicator,
+} from "@chakra-ui/react";
 import ProductSimple from "../components/invoiceCard";
 import Simple from "../components/profilebar";
 import { supabase } from "../supabase";
@@ -20,10 +27,11 @@ export default function Invoice() {
     const { data, error, status } = await supabase
       .from("invoices")
       .select(`month, cost, supplier, id`)
-      .eq("user_id", user.id);
-      
-      const newData = Array.from(data)
-      setResults(newData);
+      .eq("user_id", user.id)
+      .eq("month", );
+
+    const newData = Array.from(data);
+    setResults(newData);
   }
 
   useEffect(() => {
@@ -33,9 +41,9 @@ export default function Invoice() {
   return (
     <div>
       <Simple />
-      <Grid templateColumns='repeat(4, 1fr)' spacing={20} px={20}>
+      <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
         {results.map((result) => (
-          <ProductSimple name={result.month} price={result.cost} />
+          <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
         ))}
         <Button
           bg={"blue.400"}
@@ -48,7 +56,6 @@ export default function Invoice() {
           Update Invoice
         </Button>
       </Grid>
-      
     </div>
   );
 }

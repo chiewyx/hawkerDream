@@ -109,13 +109,14 @@ const PreviewImage = (props, ref) => {
   );
 };
 
-export default function UploadImage() {
+export default function UploadImage(props) {
   const controls = useAnimation();
   const startAnimation = () => controls.start("hover");
   const stopAnimation = () => controls.stop();
   const [uploading, setUploading] = useState(false);
   const [image, setImage] = useState("");
   const toast = useToast();
+  const user = supabase.auth.user();
 
   const uploadInvoice = async (event) => {
     //setUploading(true);
@@ -128,12 +129,12 @@ export default function UploadImage() {
     const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${fileName}`;
+    const fileFolder = `${user.id}.${filePath}`
 
     let { error: uploadError } = await supabase.storage
       .from("invoices")
-      .upload(filePath, file);
+      .upload(`${user.id}/${props.month}/${props.supplier}`, file);
 
-      
       toast({
         title: "Invoice uploaded",
         description: "You've uploaded your invoice successfully",

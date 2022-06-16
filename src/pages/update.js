@@ -30,7 +30,7 @@ export default function UserProfileEdit() {
   const [last_name, setLastName] = useState();
   const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
-  const [showPassword, setShowPassword] = useState(false);
+  //const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
 
   async function getProfile() {
