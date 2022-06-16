@@ -31,6 +31,7 @@ export default function Dashboard() {
     useDisclosure,
     Square,
   } from "@chakra-ui/react";
+  import { HashLink } from 'react-router-hash-link';
   
   import {
     HamburgerIcon,
@@ -140,7 +141,7 @@ export default function Dashboard() {
           <Box key={navItem.label}>
             <Popover trigger={"hover"} placement={"bottom-start"}>
               <PopoverTrigger>
-                <Link
+                <HashLink
                   p={2}
                   paddingTop={8}
                   href={navItem.href ?? "#"}
@@ -151,10 +152,10 @@ export default function Dashboard() {
                     textDecoration: "none",
                     color: linkHoverColor,
                   }}
-                  to="/hawker"
+                  to= {navItem.temp}
                 >
                   {navItem.label}
-                </Link>
+                </HashLink>
               </PopoverTrigger>
   
               {navItem.children && (
@@ -182,7 +183,7 @@ export default function Dashboard() {
   
   const DesktopSubNav = ({ label, href, subLabel, to}) => {
     return (
-      <Link
+      <HashLink
         as={ReactRouterLink}
         //href={href}
         role={"group"}
@@ -218,7 +219,7 @@ export default function Dashboard() {
             <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
-      </Link>
+      </HashLink>
     );
   };
   /*
@@ -296,27 +297,29 @@ export default function Dashboard() {
   const NAV_ITEMS = [
     {
       label: "Features",
+      temp: "/", 
       children: [
         {
           label: "Hawker",
           subLabel: "Manage your invoices with ease",
           href: "hawker",
-          to:'/hawker'
+          to:'/#section-two'
           
         },
         {
           label: "Supplier",
           subLabel: "List your products to hawkers in need",
           href: "supplier",
-          to: '/supplier'
+          to: '/#section-three'
         },
       ],
     },
     {
       label: "Marketplace",
+      temp: '/#section-four',
       subLabel: "Find everything you need here",
       href: "marketplace",
-      to: '/marketplace'
+      to: '/#section-four'
     },
   ];
   
