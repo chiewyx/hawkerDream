@@ -14,8 +14,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-import order from "../order.jpg";
-import supplier from "../supplier.jpg";
+import order from "../order.jpg"; 
 import speechbubble from "../test.jpg";
 
 import WithSubnavigation from "../components/navbar";
