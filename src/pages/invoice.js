@@ -1,9 +1,11 @@
 import {
   Button,
+  Center,
   Flex,
   Grid,
   Heading,
   HStack,
+  Spacer,
   TabIndicator,
 } from "@chakra-ui/react";
 import ProductSimple from "../components/invoiceCard";
@@ -28,7 +30,7 @@ export default function Invoice() {
       .from("invoices")
       .select(`month, cost, supplier, id`)
       .eq("user_id", user.id)
-      .eq("month", );
+      .eq("month");
 
     const newData = Array.from(data);
     setResults(newData);
@@ -43,8 +45,13 @@ export default function Invoice() {
       <Simple />
       <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
         {results.map((result) => (
-          <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
+          <ProductSimple
+            name={result.month}
+            price={result.cost}
+            supplier={result.supplier}
+          />
         ))}
+        <Spacer />
         <Button
           bg={"blue.400"}
           rounded={"full"}
@@ -52,6 +59,7 @@ export default function Invoice() {
           _hover={{ bg: "blue.500" }}
           as={Link}
           to="/invoice/updateinvoice"
+          py={400}
         >
           Update Invoice
         </Button>

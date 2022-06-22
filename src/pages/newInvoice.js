@@ -81,16 +81,24 @@ export default function UpdateInvoice() {
               Insert Invoice
             </Heading>
             
-            <FormControl id="month" isRequired>
-              <FormLabel>Month</FormLabel>
-              <Input
-                placeholder="Month"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                value={month || ""}
-                onChange={(e) => setMonth(e.target.value)}
-              />
-            </FormControl>
+            
+              <Select
+              placeholder="Select month"
+              onChange={(e) => setMonth(e.target.value)}
+            >
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </Select>
             <HStack>
               <FormControl id="supplier" isRequired>
                 <FormLabel>Supplier</FormLabel>
