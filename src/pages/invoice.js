@@ -51,7 +51,7 @@ export default function Invoice() {
             supplier={result.supplier}
           />
         ))}
-        <Spacer />
+        
         <Button
           bg={"blue.400"}
           rounded={"full"}
