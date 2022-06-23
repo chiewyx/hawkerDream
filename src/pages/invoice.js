@@ -45,10 +45,7 @@ export default function Invoice() {
         {results.map((result) => (
           <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
         ))}
-<<<<<<< HEAD
-=======
         
->>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
         <Button
           bg={"blue.400"}
           rounded={"full"}
