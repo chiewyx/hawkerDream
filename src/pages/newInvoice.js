@@ -80,9 +80,8 @@ export default function UpdateInvoice() {
             <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
               Insert Invoice
             </Heading>
-            
-            
-              <Select
+
+            <Select
               placeholder="Select month"
               onChange={(e) => setMonth(e.target.value)}
             >
@@ -121,8 +120,8 @@ export default function UpdateInvoice() {
                 />
               </FormControl>
             </HStack>
-            
-            <UploadImage month={month} supplier={supplier}/>
+
+            <UploadImage month={month} supplier={supplier} />
             <Stack spacing={6} direction={["column", "row"]}>
               <Button
                 bg={"red.400"}
