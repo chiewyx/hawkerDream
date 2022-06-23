@@ -4,7 +4,6 @@ import {
     Grid,
     Heading,
     HStack,
-    TabIndicator,
   } from "@chakra-ui/react";
   import ProductSimple from "../../components/invoiceCard"; 
   import Simple from "../../components/profilebar";
@@ -15,7 +14,7 @@ import {
   export default function JulInvoice() {
     const user = supabase.auth.user();
     const session = supabase.auth.session();
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
     const [results, setResults] = useState([]);
     //const [avatar_url, setAvatarUrl] = useState();
     //const [profile_type, setProfileType] = useState();
