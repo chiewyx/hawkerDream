@@ -95,7 +95,6 @@ export default function UpdateOrder() {
           {list.map((item) => (
             <li key={item.id}>
               {item.item}
-
               <IconButton
                 icon={<DeleteIcon />}
                 onClick={() => deleteItem(item.id)}

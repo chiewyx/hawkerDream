@@ -13,8 +13,7 @@ import {
   Link,
   useToast,
   useColorModeValue,
-  FormLabel,
-  Spacer,
+  FormLabel
 } from "@chakra-ui/react";
 
 import { MinusIcon, AddIcon, DeleteIcon } from "@chakra-ui/icons";
