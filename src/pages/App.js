@@ -6,6 +6,14 @@ import LandingPage from "./landing";
 import UserProfileEdit from "./update";
 import SplitWithImage from "./features";
 import SplitWithImag from "./featuresupplier";
+<<<<<<< HEAD
+=======
+
+import Order from "./order";
+import UpdateOrder from "./newOrder"; 
+import AddOrder from "./addOrder"; 
+
+>>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
 import Invoice from "./invoice";
 import JanInvoice from "./months/january";
 import FebInvoice from "./months/february";
@@ -19,11 +27,19 @@ import SeptInvoice from "./months/september";
 import NovInvoice from "./months/november";
 import OctInvoice from "./months/october";
 import DecInvoice from "./months/december";
+<<<<<<< HEAD
 import Order from "./order";
 import Marketplace from "./marketplace";
 import UpdateInvoice from "./newInvoice";
 import DisplayMonth from "./month";
 
+=======
+import UpdateInvoice from "./newInvoice";
+import DisplayMonth from "./month";
+
+import Marketplace from "./marketplace";
+
+>>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
 export default function App() {
   return (
     <div className="App">
@@ -36,6 +52,10 @@ export default function App() {
         <Route path="/dashboard/update" exact element={<UserProfileEdit />} />
         <Route path="/hawker" exact element={<SplitWithImage />} />
         <Route path="/supplier" exact element={<SplitWithImag />} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
         <Route path="/invoice" exact element={<DisplayMonth />} />
         <Route path="/invoice/January" exact element={<JanInvoice />} />
         <Route path="/invoice/February" exact element={<FebInvoice />} />
@@ -50,6 +70,12 @@ export default function App() {
         <Route path="/invoice/November" exact element={<NovInvoice />} />
         <Route path="/invoice/December" exact element={<DecInvoice />} />
         <Route path="/invoice/updateinvoice" exact element={<UpdateInvoice />} />
+<<<<<<< HEAD
+=======
+        
+        <Route path="/order/updateorder" exact element={<UpdateOrder />} />
+        <Route path="/order/addorder" exact element={<AddOrder />} />
+>>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
         <Route path="/order" exact element={<Order />} />
         <Route path="/marketplace" exact element={<Marketplace />} />
       </Routes>

@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+<<<<<<< HEAD
+=======
+
+input[type=text] {
+  width: 100%;
+  padding: 8px 20px;
+  margin: 2px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type=int] {
+  width: 100%;
+  padding: 8px 15px;
+  margin: 2px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.1s;
+  outline: none;
+}
+
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+input[type=int]:focus {
+  border: 3px solid #555;
+}
+>>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
