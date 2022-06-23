@@ -11,8 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-<<<<<<< HEAD
-=======
 
 input[type=text] {
   width: 100%;
@@ -44,4 +42,3 @@ input[type=text]:focus {
 input[type=int]:focus {
   border: 3px solid #555;
 }
->>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
