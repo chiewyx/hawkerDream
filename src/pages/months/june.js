@@ -4,6 +4,7 @@ import {
     Grid,
     Heading,
     HStack,
+    Spacer,
     TabIndicator,
   } from "@chakra-ui/react";
   import ProductSimple from "../../components/invoiceCard"; 
@@ -42,6 +43,7 @@ import {
       <div>
         <Simple />
         <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
+        
           {results.map((result) => (
             <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
           ))}
@@ -52,6 +54,8 @@ import {
             _hover={{ bg: "blue.500" }}
             as={Link}
             to="/invoice/updateinvoice"
+            my={300}
+            mx={50}
           >
             Update Invoice
           </Button>
