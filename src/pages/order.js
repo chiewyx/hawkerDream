@@ -1,11 +1,4 @@
 import Simple from "../components/profilebar";
-<<<<<<< HEAD
-
-export default function Order() {
-  return (
-    <div>
-      <Simple />
-=======
 import { Button, HStack, Spacer, } from "@chakra-ui/react";
 import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -43,7 +36,6 @@ export default function Order() {
           Add order 
         </Button>
         </HStack>
->>>>>>> 9a537b398075de4d5437be7f814da294fbd4e429
     </div>
   );
 }
