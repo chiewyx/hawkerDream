@@ -148,9 +148,9 @@ export default function UserProfileEdit() {
               <option value="supplier">Supplier</option>
             </Select>
             <FormControl id="userName" isRequired>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Hawker/Supplier name</FormLabel>
               <Input
-                placeholder="UserName"
+                placeholder="Name of shop"
                 _placeholder={{ color: "gray.500" }}
                 type="text"
                 value={username || ""}
