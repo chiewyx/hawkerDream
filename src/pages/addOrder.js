@@ -18,19 +18,21 @@ import {
 } from "@chakra-ui/react";
 
 import { MinusIcon, AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { supabase } from "../supabase";
 
 export default function AddOrder() {
   const [list, setList] = useState([]);
-  const user = supabase.auth.user();
-  const [checked, setChecked] = useState([]);
   const toast = useToast();
+  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState(new Date());
+  const [customerName, setCustomerName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [orderList, setOrderList] = useState([]);
 
+  // to get the order list updated by supplier
   const fetchList = async () => {
     const { data: itemList } = await supabase
       .from("orderList")
@@ -40,19 +42,84 @@ export default function AddOrder() {
     setList(itemList);
   };
 
-  // Add/Remove checked item from list
-  const handleCheck = (event) => {
-    const updatedList = [...checked];
+  useEffect(() => {
+    fetchList();
+  }, []);
 
-    if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
-    } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
-    }
-    setChecked(updatedList);
+  const formReducer = (state, event) => {
+    return {
+      ...state,
+      [event.target.name]: event.target.value,
+    };
   };
 
-  async function insertForm() {}
+  const [formData, setFormData] = useReducer(formReducer, {});
+
+  const handleChange = (event) => {
+    setFormData({
+      name: event.target.name,
+      value: event.target.value,
+    });
+  };
+
+  const [userinfo, setUserInfo] = useState({
+    languages: [],
+    response: [],
+  });
+  
+  const handleCheck = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+    const { languages } = userinfo;
+      
+    console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        languages: [...languages, value],
+        response: [...languages, value],
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        languages: languages.filter((e) => e !== value),
+        response: languages.filter((e) => e !== value),
+      });
+    }
+  };
+
+  async function insertForm(e) {
+    e.preventDefault();
+    try {
+      setSubmitting(true);
+      const user = supabase.auth.user();
+      const updates = {
+        user_id: user.id,
+        user_email: user.email,
+        delivery_address: deliveryAddress,
+        customer_name: customerName,
+        delivery_date: deliveryDate,
+        contact_number: contactNumber,
+        item_list: userinfo.languages, 
+        created_at: new Date(),
+      };
+
+      let { error } = await supabase.from("orders").upsert(updates, {
+        returning: "minimal", // Don't return the value after inserting
+      });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div>
@@ -76,16 +143,40 @@ export default function AddOrder() {
           >
             <Grid templateColumns="repeat(2,1fr)" gap={6}>
               <label for="customerName"> Customer Name </label>
-              <input type="text" name="customerName" id="customerName" />
+              <input
+                type="text"
+                name="customerName"
+                id="customerName"
+                onChange={(e) => setCustomerName(e.target.value)}
+                value={customerName || ""}
+              />
 
               <label for="contactNum"> Contact Number </label>
-              <input type="int" name="contactNum" id="contactNum" />
+              <input
+                type="int"
+                name="contactNum"
+                id="contactNum"
+                onChange={(e) => setContactNumber(e.target.value)}
+                value={contactNumber || ""}
+              />
 
               <label for="deliveryAddress"> Delivery Address</label>
-              <input type="text" name="deliveryAddress" id="deliveryAddress" />
+              <input
+                type="text"
+                name="deliveryAddress"
+                id="deliveryAddress"
+                onChange={(e) => setDeliveryAddress(e.target.value)}
+                value={deliveryAddress || ""}
+              />
 
               <label for="deliveryDate"> Delivery Date</label>
-              <input type="date" name="deliveryDate" id="deliveryDate" />
+              <input
+                type="date"
+                name="deliveryDate"
+                id="deliveryDate"
+                onChange={(e) => setDeliveryDate(e.target.value)}
+                value={deliveryDate}
+              />
             </Grid>
 
             <Grid templateColumns="repeat(2,1fr)" gap={6}>
@@ -101,13 +192,15 @@ export default function AddOrder() {
                       value={item.item}
                       type="checkbox"
                       onChange={handleCheck}
+                      name="item"
                     />
+
                     {item.item}
                   </Box>
 
-                  <input type="int" name="deliveryDate" id="deliveryDate" />
+                  <input type="number" name="quantity" step="1" />
 
-                  
+
                 </Grid>
               </div>
             ))}
