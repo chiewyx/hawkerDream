@@ -22,8 +22,6 @@ import { SmallCloseIcon } from "@chakra-ui/icons";
 import UploadImage from "../components/uploadImg";
 
 export default function UpdateInvoice() {
-  const user = supabase.auth.user();
-  const session = supabase.auth.session();
   const [loading, setLoading] = useState(true);
   const [cost, setCost] = useState();
   const [supplier, setSupplier] = useState();
@@ -57,6 +55,7 @@ export default function UpdateInvoice() {
       setLoading(false);
     }
   }
+  
   return (
     <div>
       <Simple />

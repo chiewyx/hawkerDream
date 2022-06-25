@@ -16,6 +16,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 export default function UpdateOrder() {
   const [list, setList] = useState([]);
   const [newItem, setNewItem] = useState("");
+  const [price, setPrice] = useState("");
   const user = supabase.auth.user();
   const toast = useToast();
 
@@ -36,9 +37,10 @@ export default function UpdateOrder() {
   const addItem = async (itemName) => {
     let { data: item } = await supabase
       .from("orderList")
-      .insert({ item: itemName, user_id: user.id })
+      .insert({ item: itemName, user_id: user.id, price: price })
       .single();
     setList([...list, item]);
+  
 
     toast({
       title: "Item added",
@@ -46,7 +48,7 @@ export default function UpdateOrder() {
       status: "success",
       duration: 9000,
       isClosable: true,
-    })
+    });
   };
 
   const deleteItem = async (itemId) => {
@@ -56,7 +58,7 @@ export default function UpdateOrder() {
         .delete()
         .eq("id", itemId, "user_id", user.id);
 
-      setList(list.filter((item) => item.id != itemId));
+      setList(list.filter((item) => item.id !== itemId));
     } catch (error) {
       console.log("error", error);
     }
@@ -81,13 +83,22 @@ export default function UpdateOrder() {
           p={6}
           my={12}
         >
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+          <Grid templateColumns="repeat(3, 1fr)" gap={6}>
             <Input
               type="text"
               placeholder="Add item here"
               value={newItem}
               onChange={(event) => {
                 setNewItem(event.target.value);
+              }}
+            />
+
+            <Input
+              type="text"
+              placeholder="Add item here"
+              value={price}
+              onChange={(event) => {
+                setPrice(event.target.value);
               }}
             />
             <Button onClick={() => addItem(newItem)}> Add </Button>
