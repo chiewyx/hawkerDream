@@ -6,31 +6,39 @@ import {
   Text,
   Stack,
   Image,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  Button,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
 import calendar from "../calendar.svg";
-import groceries from "../groceries.svg"
+import groceries from "../groceries.svg";
 import { supabase } from "../supabase";
 import { useState, useEffect, useCallback } from "react";
 
 export default function ProductOrder(props) {
   const [orders, setOrders] = useState([]);
 
-  
-
-  const getOrder =  useCallback( async() => {
+  const getOrder = useCallback(async () => {
     //setLoading(true);
     //const user = supabase.auth.user();
     const { data, error, status } = await supabase
       .from("orderList")
       .select("item")
-      .eq("user_id", `${props.userid}`)
-      console.log("hello")
-      
-      const newData = Array.from(data);
-      setOrders(newData);
-  }, [props.userid])
+      .eq("user_id", `${props.userid}`);
+    console.log("hello");
+
+    const newData = Array.from(data);
+    setOrders(newData);
+  }, [props.userid]);
 
   useEffect(() => {
     getOrder();
@@ -90,13 +98,24 @@ export default function ProductOrder(props) {
           >
             ORDER
           </Text>
-          <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-            {props.name}
-          </Heading>
+          
+          <Popover>
+            <PopoverTrigger>
+              <Button variant='link' size='lg'>{props.name}</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Items Sold</PopoverHeader>
+              <PopoverBody>
+                {orders.map((order) => (
+                  <li>{order.item}</li>
+                ))}
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
           <Stack direction={"row"} align={"center"}>
-            {orders.map((order) => (
-              <li>{order.item}</li>
-            ))}
+            <Text fontSize={"m"}>{props.items}</Text>
           </Stack>
         </Stack>
       </Box>
