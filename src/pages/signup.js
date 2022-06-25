@@ -16,6 +16,7 @@ import {
   Text,
   Select,
   useColorModeValue,
+  useToast
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -32,6 +33,7 @@ export default function SignupCard() {
   const [last_name, setLastName] = useState();
   const [profile_type, setProfileType] = useState();
   const navigate = useNavigate();
+  const toast = useToast();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -156,6 +158,15 @@ export default function SignupCard() {
                       _hover={{
                         bg: "blue.500",
                       }}
+                      onClick={() =>
+                  toast({
+                    title: "Sign up successful",
+                    description: "Please verify your email!",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  })
+                }
                     >
                       Sign up
                     </Button>
