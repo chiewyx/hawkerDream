@@ -5,6 +5,7 @@ import {
     Heading,
     HStack,
     TabIndicator,
+    Spacer
   } from "@chakra-ui/react";
   import ProductSimple from "../../components/invoiceCard"; 
   import Simple from "../../components/profilebar";
@@ -52,6 +53,8 @@ import {
             _hover={{ bg: "blue.500" }}
             as={Link}
             to="/invoice/updateinvoice"
+            my={300}
+            mx={50}
           >
             Update Invoice
           </Button>

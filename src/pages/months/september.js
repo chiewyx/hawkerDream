@@ -52,6 +52,8 @@ import {
             _hover={{ bg: "blue.500" }}
             as={Link}
             to="/invoice/updateinvoice"
+            my={300}
+            mx={50}
           >
             Update Invoice
           </Button>
