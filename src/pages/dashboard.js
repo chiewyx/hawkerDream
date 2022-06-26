@@ -126,7 +126,7 @@ export default function Dashboard() {
                   as={Link}
                   to="/dashboard/update"
                 >
-                  Update your profile!
+                  Set-up/Update your profile!
                 </Button>
               </Stack>
             </Stack>

@@ -27,7 +27,7 @@ import {
       const user = supabase.auth.user();
       const { data, error, status } = await supabase
         .from("invoices")
-        .select(`month, cost, supplier, id`)
+        .select(`month, cost, supplier, id, items`)
         .eq("user_id", user.id)
         .eq("month", "June");
   
@@ -45,7 +45,7 @@ import {
         <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
         
           {results.map((result) => (
-            <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
+            <ProductSimple name={result.month} price={result.cost} items={result.items} supplier={result.supplier} items={result.items} />
           ))}
           <Button
             bg={"blue.400"}
