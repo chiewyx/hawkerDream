@@ -28,6 +28,7 @@ export default function UpdateInvoice() {
   const [cost, setCost] = useState();
   const [supplier, setSupplier] = useState();
   const [month, setMonth] = useState();
+  const [items, setItem] = useState();
   const toast = useToast();
 
   async function insertInvoice(e) {
@@ -41,6 +42,7 @@ export default function UpdateInvoice() {
         month,
         cost,
         supplier,
+        items,
         created_at: new Date(),
       };
 
@@ -113,6 +115,16 @@ export default function UpdateInvoice() {
                 />
               </FormControl>
             </HStack>
+            <FormControl id="items" isRequired>
+                <FormLabel>Items purchased</FormLabel>
+                <Input
+                  placeholder="Chicken, pork, etc."
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                  value={items || ""}
+                  onChange={(e) => setItem(e.target.value)}
+                />
+              </FormControl>
             
             <UploadImage month={month} supplier={supplier}/>
             <Stack spacing={6} direction={["column", "row"]}>
