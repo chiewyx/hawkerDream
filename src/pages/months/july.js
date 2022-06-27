@@ -4,7 +4,6 @@ import {
     Grid,
     Heading,
     HStack,
-    TabIndicator,
   } from "@chakra-ui/react";
   import ProductSimple from "../../components/invoiceCard"; 
   import Simple from "../../components/profilebar";
@@ -15,7 +14,7 @@ import {
   export default function JulInvoice() {
     const user = supabase.auth.user();
     const session = supabase.auth.session();
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
     const [results, setResults] = useState([]);
     //const [avatar_url, setAvatarUrl] = useState();
     //const [profile_type, setProfileType] = useState();
@@ -26,7 +25,7 @@ import {
       const user = supabase.auth.user();
       const { data, error, status } = await supabase
         .from("invoices")
-        .select(`month, cost, supplier, id`)
+        .select(`month, cost, supplier, id, items`)
         .eq("user_id", user.id)
         .eq("month", "July");
   
@@ -43,7 +42,7 @@ import {
         <Simple />
         <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
           {results.map((result) => (
-            <ProductSimple name={result.month} price={result.cost} supplier={result.supplier}/>
+            <ProductSimple name={result.month} items={result.items} price={result.cost} supplier={result.supplier}/>
           ))}
           <Button
             bg={"blue.400"}
@@ -52,6 +51,8 @@ import {
             _hover={{ bg: "blue.500" }}
             as={Link}
             to="/invoice/updateinvoice"
+            my={300}
+            mx={50}
           >
             Update Invoice
           </Button>

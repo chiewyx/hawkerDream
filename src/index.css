@@ -23,7 +23,7 @@ input[type=text] {
   outline: none;
 }
 
-input[type=int] {
+input[type=number] {
   width: 100%;
   padding: 8px 15px;
   margin: 2px 0;
@@ -38,6 +38,18 @@ input[type=int] {
 input[type=text]:focus {
   border: 3px solid #555;
 }
+
+input[type=int] {
+  width: 100%;
+  padding: 8px 15px;
+  margin: 2px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.1s;
+  outline: none;
+}
+
 
 input[type=int]:focus {
   border: 3px solid #555;
