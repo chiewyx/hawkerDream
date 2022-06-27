@@ -54,7 +54,10 @@ input[type=int] {
 input[type=int]:focus {
   border: 3px solid #555;
 }
+<<<<<<< HEAD
 
 input[type=number]:focus {
   border: 3px solid #555;
 }
+=======
+>>>>>>> b6ec6d5fb6ebcfd484151d57c599ec0b2a249662

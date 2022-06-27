@@ -41,8 +41,8 @@ export default function App() {
         <Route path="/dashboard/update" exact element={<UserProfileEdit />} />
         <Route path="/hawker" exact element={<SplitWithImage />} />
         <Route path="/supplier" exact element={<SplitWithImag />} />
-
         <Route path="/invoice" exact element={<DisplayMonth />} />
+        
         <Route path="/invoice/January" exact element={<JanInvoice />} />
         <Route path="/invoice/February" exact element={<FebInvoice />} />
         <Route path="/invoice/March" exact element={<MarInvoice />} />

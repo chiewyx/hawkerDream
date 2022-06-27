@@ -10,9 +10,10 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 //import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 //import mainlogo from "../logo.jpg";
-//import UserProfileEdit from "../components/update";
+import UserProfileEdit from "./update";
 
 export default function Dashboard() {
   //const { user } = useAuth()
@@ -122,21 +123,16 @@ export default function Dashboard() {
                   rounded={"full"}
                   color={"white"}
                   _hover={{ bg: "blue.500" }}
+                  as={Link}
+                  to="/dashboard/update"
                 >
-                  Show me more
-                </Button>
-                <Button
-                  bg={"whiteAlpha.300"}
-                  rounded={"full"}
-                  color={"white"}
-                  _hover={{ bg: "whiteAlpha.500" }}
-                >
-                  Show me more
+                  Set-up/Update your profile!
                 </Button>
               </Stack>
             </Stack>
           </VStack>
         </Flex>
+        
       </Flex>
     </div>
   );

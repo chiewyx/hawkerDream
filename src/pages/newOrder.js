@@ -28,6 +28,7 @@ export default function UpdateOrder() {
     const { data: itemList } = await supabase
       .from("orderList")
       .select("*")
+      .eq("user_id", user.id)
       .order("item", true);
 
     setList(itemList);
@@ -105,7 +106,6 @@ export default function UpdateOrder() {
           {list.map((item) => (
             <li key={item.id}>
               {item.item}
-
               <IconButton
                 icon={<DeleteIcon />}
                 onClick={() => deleteItem(item.id)}

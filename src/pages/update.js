@@ -28,8 +28,10 @@ export default function UserProfileEdit() {
   const [username, setUsername] = useState();
   const [first_name, setFirstName] = useState();
   const [last_name, setLastName] = useState();
+  const [products_sold, setProductSold] = useState();
   const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
+  const [description, setDescription] = useState();
   //const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
 
@@ -41,7 +43,7 @@ export default function UserProfileEdit() {
 
       const { data, error, status } = await supabase
         .from("user_profiles")
-        .select(`username, first_name, last_name, profile_type`)
+        .select(`username, first_name, last_name, profile_type, products_sold, description`)
         .eq("id", user.id)
         .single();
 
@@ -55,6 +57,8 @@ export default function UserProfileEdit() {
         setLastName(data.last_name);
         setAvatarUrl(data.avatar_url);
         setProfileType(data.profile_type);
+        setProductSold(data.products_sold);
+        setDescription(data.description)
       }
     } catch (error) {
       alert(error.message);
@@ -79,6 +83,7 @@ export default function UserProfileEdit() {
         first_name,
         last_name,
         profile_type,
+        products_sold,
         updated_at: new Date(),
       };
 
@@ -148,15 +153,35 @@ export default function UserProfileEdit() {
               <option value="supplier">Supplier</option>
             </Select>
             <FormControl id="userName" isRequired>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Hawker/Supplier name</FormLabel>
               <Input
-                placeholder="UserName"
+                placeholder="Name of shop"
                 _placeholder={{ color: "gray.500" }}
                 type="text"
                 value={username || ""}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </FormControl>
+            <FormControl id="itemsSold" isRequired>
+                <FormLabel>For Suppliers: What products do you sell?</FormLabel>
+                <Input
+                  placeholder="poultry, vegetables, etc."
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                  value={products_sold || ""}
+                  onChange={(e) => setProductSold(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="description" isRequired>
+                <FormLabel>A short description of your store/business</FormLabel>
+                <Input
+                  placeholder="Cheapest and highest quality beef, etc."
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                  value={description || ""}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </FormControl>
             <HStack>
               <FormControl id="firstName" isRequired>
                 <FormLabel>First Name</FormLabel>
