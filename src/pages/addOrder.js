@@ -1,22 +1,14 @@
 import Simple from "../components/profilebar";
 import {
-  FormControl,
   Grid,
-  IconButton,
-  Input,
   Stack,
-  HStack,
   Box,
   Flex,
   Button,
-  Text,
-  Link,
   useToast,
   useColorModeValue,
-  FormLabel,
 } from "@chakra-ui/react";
 
-import { MinusIcon, AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
 
@@ -25,11 +17,11 @@ export default function AddOrder() {
   const user = supabase.auth.user();
   const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState([]);
-  const [orderInfo, setOrderInfo] = useState([{ itemName: "", quantity: "" }]);
-  const [customerName, setCustomerName] = useState(""); 
-  const [contactNum, setContactNum] = useState(""); 
-  const [deliveryAddress, setDeliveryAddress] = useState(""); 
-  const [deliveryDate, setDeliveryDate] = useState(new Date()); 
+  const [customerName, setCustomerName] = useState("");
+  const [contactNum, setContactNum] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState(new Date());
+  const [quantity, setQuantity] = useState([]);
 
   const toast = useToast();
 
@@ -47,16 +39,41 @@ export default function AddOrder() {
     setList(itemList);
   };
 
-  // Add/Remove checked item from list
-  const handleCheck = (event) => {
-    const updatedList = [...checked];
+  const [orderInfo, setOrderInfo] = useState({
+    items: [],
+    response: [],
+  });
 
-    if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
-    } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
+  const handleCheck = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+    const { items } = orderInfo;
+
+    console.log(`${value} is ${checked}`);
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setOrderInfo({
+        items: [...items, value],
+        response: [...items, value],
+      });
     }
-    setChecked(updatedList);
+
+    // Case 2  : The user unchecks the box
+    else {
+      setOrderInfo({
+        items: items.filter((e) => e !== value),
+        response: items.filter((e) => e !== value),
+      });
+    }
+  };
+
+  const handleQuantity = (event, index) => {
+    const newQuantity = [...quantity];
+
+    newQuantity[index] = event.target.value;
+
+    setQuantity(newQuantity);
   };
 
   async function insertForm(e) {
@@ -67,11 +84,12 @@ export default function AddOrder() {
       const updates = {
         user_id: user.id,
         user_email: user.email,
-        item_list: checked,
+        item_list: orderInfo.response,
         delivery_date: deliveryDate,
         delivery_address: deliveryAddress,
         customer_name: customerName,
         contact_number: contactNum,
+        quantity: quantity.filter((e) => e),
         created_at: new Date(),
       };
 
@@ -159,6 +177,7 @@ export default function AddOrder() {
                       value={item.item}
                       type="checkbox"
                       onChange={handleCheck}
+                      id={index}
                     />
                     {item.item}
                   </Box>
@@ -167,7 +186,7 @@ export default function AddOrder() {
                     type="number"
                     name="quantity"
                     id="quantity"
-                    
+                    onChange={(e) => handleQuantity(e, index)}
                   />
                 </Grid>
               </div>
@@ -184,7 +203,7 @@ export default function AddOrder() {
               onClick={() =>
                 toast({
                   title: "Order uploaded",
-                  description: "You've uploaded your invoice successfully",
+                  description: "You've uploaded your order successfully",
                   status: "success",
                   duration: 9000,
                   isClosable: true,
