@@ -6,119 +6,86 @@ import {
   Text,
   Stack,
   Image,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
   Button,
+  Grid,
+  Spacer,
+  HStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
-import calendar from "../calendar.svg";
-import groceries from "../groceries.svg";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
-import { useState, useEffect, useCallback } from "react";
 
-export default function ProductOrder(props) {
-  const [orders, setOrders] = useState([]);
+export default function ProductSimple(props) {
+  const user = supabase.auth.user();
+  const [orderList, setOrderList] = useState([]);
 
-  const getOrder = useCallback(async () => {
-    //setLoading(true);
-    //const user = supabase.auth.user();
-    const { data, error, status } = await supabase
-      .from("orderList")
-      .select("item")
-      .eq("user_id", `${props.userid}`);
-    console.log("hello");
+  const fetchList = async () => {
+    // get the orders keyed in manually by the suppliers
+    const { data: orderList } = await supabase
+      .from("orders")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("id", true);
 
-    const newData = Array.from(data);
-    setOrders(newData);
-  }, [props.userid]);
+    setOrderList(orderList);
+  };
 
   useEffect(() => {
-    getOrder();
-  }, [getOrder]);
+    fetchList();
+  }, []);
 
   return (
-    <Center py={12}>
-      <Box
-        role={"group"}
-        p={6}
-        maxW={"330px"}
-        w={"full"}
-        bg={useColorModeValue("white", "gray.800")}
-        boxShadow={"2xl"}
-        rounded={"lg"}
-        pos={"relative"}
-        zIndex={1}
-      >
-        <Box
-          rounded={"lg"}
-          //mt={}
-          pos={"relative"}
-          height={"230px"}
-          _after={{
-            transition: "all .3s ease",
-            content: '""',
-            w: "full",
-            h: "full",
-            pos: "absolute",
-            top: 5,
-            left: 0,
-            backgroundImage: `url(${groceries})`,
-            filter: "blur(15px)",
-            zIndex: -1,
-          }}
-          _groupHover={{
-            _after: {
-              filter: "blur(20px)",
-            },
-          }}
-        >
-          <Image
-            rounded={"lg"}
-            height={230}
-            width={282}
-            objectFit={"cover"}
-            src={groceries}
-          />
+    <div>
+      <Center>
+        <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
+          Incomplete orders
         </Box>
-        <Stack pt={10} align={"center"}>
-          <Text
-            color={"gray.500"}
-            fontSize={"sm"}
-            textTransform={"uppercase"}
-            as={Link}
-            to={"/order/addorder"}
+      </Center>
+      <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20} gap={6}>
+        {orderList.map((info, index) => (
+          <Box
+            role={"group"}
+            p={6}
+            maxW={"330px"}
+            w={"full"}
+            bg={"white"}
+            boxShadow={"2xl"}
+            rounded={"lg"}
+            pos={"relative"}
+            zIndex={1}
           >
-            ORDER
-          </Text>
-          
-          <Popover>
-            <PopoverTrigger>
-              <Button variant='link' size='lg'>{props.name}</Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Items Sold</PopoverHeader>
-              <PopoverBody>
-                {orders.map((order) => (
-                  <li>{order.item}</li>
-                ))}
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-          <Stack direction={"row"} align={"center"}>
-            <Text fontSize={"m"}>{props.items}</Text>
-          </Stack>
-        </Stack>
-      </Box>
-    </Center>
+            <div key={index}>
+              {info.customer_name}
+              <Spacer />
+              {info.contact_number}
+              <Spacer />
+              {info.delivery_date}
+              <Spacer />
+              {info.delivery_address}
+              <Spacer />
+              <Box bg="white" w="100%" p={4} color="white"></Box>
+
+              <Grid templateColumns="repeat(2, 1fr)" gap={50}>
+                <Box>
+                  {info.item_list.map((item) => (
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                      {item}
+                    </Grid>
+                  ))}
+                </Box>
+                <Box>
+                  {info.quantity.map((quantity) => (
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                      {quantity}
+                    </Grid>
+                  ))}
+                </Box>
+              </Grid>
+            </div>
+          </Box>
+        ))}
+      </Grid>
+    </div>
   );
 }

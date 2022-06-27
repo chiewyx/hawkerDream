@@ -3,6 +3,7 @@ import { Button, HStack, Spacer, } from "@chakra-ui/react";
 import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabase";
+import OrderCard from "../components/orderCard"; 
 
 
 export default function Order() {
@@ -36,6 +37,8 @@ export default function Order() {
           Add order 
         </Button>
         </HStack>
+
+        <OrderCard /> 
     </div>
   );
 }
