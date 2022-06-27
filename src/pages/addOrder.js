@@ -24,11 +24,11 @@ export default function AddOrder() {
   const [quantity, setQuantity] = useState([]);
 
   const toast = useToast();
- 
- 
-  const [orderList, setOrderList] = useState([]);
 
-  // to get the order list updated by supplier
+  useEffect(() => {
+    fetchList();
+  }, []);
+
   const fetchList = async () => {
     const { data: itemList } = await supabase
       .from("orderList")
@@ -179,7 +179,6 @@ export default function AddOrder() {
                       onChange={handleCheck}
                       id={index}
                     />
-
                     {item.item}
                   </Box>
 
