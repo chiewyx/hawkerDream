@@ -84,6 +84,7 @@ export default function UserProfileEdit() {
         last_name,
         profile_type,
         products_sold,
+        description,
         updated_at: new Date(),
       };
 
