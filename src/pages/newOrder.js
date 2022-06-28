@@ -10,6 +10,7 @@ import {
   Button,
   useToast,
   useColorModeValue,
+  Spacer,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
@@ -40,7 +41,8 @@ export default function UpdateOrder() {
       .insert({ item: itemName, user_id: user.id, price: price })
       .single();
     setList([...list, item]);
-  
+    setNewItem(""); 
+    setPrice(""); 
 
     toast({
       title: "Item added",
@@ -95,7 +97,7 @@ export default function UpdateOrder() {
 
             <Input
               type="text"
-              placeholder="Add item here"
+              placeholder="Insert price here"
               value={price}
               onChange={(event) => {
                 setPrice(event.target.value);
@@ -107,6 +109,7 @@ export default function UpdateOrder() {
           {list.map((item) => (
             <li key={item.id}>
               {item.item}
+              {item.price}
               <IconButton
                 icon={<DeleteIcon />}
                 onClick={() => deleteItem(item.id)}
