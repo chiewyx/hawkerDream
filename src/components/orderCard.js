@@ -56,6 +56,8 @@ export default function ProductSimple(props) {
             zIndex={1}
           >
             <div key={index}>
+              <heading > {info.id} </heading>
+              <Spacer /> 
               {info.customer_name}
               <Spacer />
               {info.contact_number}
