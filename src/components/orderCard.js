@@ -10,6 +10,7 @@ import {
   Grid,
   Spacer,
   HStack,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
@@ -19,6 +20,7 @@ import { supabase } from "../supabase";
 export default function ProductSimple(props) {
   const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
+  const toast = useToast(); 
 
   const fetchList = async () => {
     // get the orders keyed in manually by the suppliers
@@ -26,6 +28,7 @@ export default function ProductSimple(props) {
       .from("orders")
       .select("*")
       .eq("user_id", user.id)
+      .eq("completed", false)
       .order("id", true);
 
     setOrderList(orderList);
@@ -34,6 +37,21 @@ export default function ProductSimple(props) {
   useEffect(() => {
     fetchList();
   }, []);
+
+  const handleCompleted = async (orderId) => {
+   const {data, error} = await supabase
+      .from("orders")
+      .update({ completed: true })
+      .match({ id: orderId })
+      
+    toast({
+      title: "Order Completed",
+      description: "You've Completed your order",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  };
 
   return (
     <div>
@@ -56,7 +74,7 @@ export default function ProductSimple(props) {
             zIndex={1}
           >
             <div key={index}>
-              <heading > {info.id} </heading>
+             <Text fontWeight="black" fontSize="3xl"> # {info.id} </Text>
               <Spacer /> 
               {info.customer_name}
               <Spacer />
@@ -84,6 +102,7 @@ export default function ProductSimple(props) {
                   ))}
                 </Box>
               </Grid>
+              <Button size="sm" onClick={() => handleCompleted(info.id)} > Completed </Button>
             </div>
           </Box>
         ))}
