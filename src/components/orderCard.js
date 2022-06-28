@@ -11,16 +11,22 @@ import {
   Spacer,
   HStack,
   useToast,
+  IconButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
+import { CheckIcon } from "@chakra-ui/icons";
 
-export default function ProductSimple(props) {
+export default function OrderCard() {
   const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
-  const toast = useToast(); 
+  const toast = useToast();
+
+  useEffect(() => {
+    fetchList();
+  }, []);
 
   const fetchList = async () => {
     // get the orders keyed in manually by the suppliers
@@ -34,16 +40,12 @@ export default function ProductSimple(props) {
     setOrderList(orderList);
   };
 
-  useEffect(() => {
-    fetchList();
-  }, []);
-
   const handleCompleted = async (orderId) => {
-   const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("orders")
       .update({ completed: true })
-      .match({ id: orderId })
-      
+      .match({ id: orderId });
+
     toast({
       title: "Order Completed",
       description: "You've Completed your order",
@@ -74,8 +76,11 @@ export default function ProductSimple(props) {
             zIndex={1}
           >
             <div key={index}>
-             <Text fontWeight="black" fontSize="3xl"> # {info.id} </Text>
-              <Spacer /> 
+              <Text fontWeight="black" fontSize="3xl">
+                {" "}
+                # {info.id}{" "}
+              </Text>
+              <Spacer />
               {info.customer_name}
               <Spacer />
               {info.contact_number}
@@ -102,7 +107,14 @@ export default function ProductSimple(props) {
                   ))}
                 </Box>
               </Grid>
-              <Button size="sm" onClick={() => handleCompleted(info.id)} > Completed </Button>
+              <Button
+                icon={<CheckIcon />}
+                size="sm"
+                onClick={() => handleCompleted(info.id)}
+              >
+                {" "}
+                {<CheckIcon />} Completed
+              </Button>
             </div>
           </Box>
         ))}

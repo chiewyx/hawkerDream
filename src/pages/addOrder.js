@@ -185,6 +185,7 @@ export default function AddOrder() {
 
                   <input
                     type="number"
+                    min="0"
                     name="quantity"
                     id="quantity"
                     onChange={(e) => handleQuantity(e, index)}
