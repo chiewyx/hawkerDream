@@ -90,6 +90,7 @@ export default function AddOrder() {
         customer_name: customerName,
         contact_number: contactNum,
         quantity: quantity.filter((e) => e),
+        completed: false, 
         created_at: new Date(),
       };
 
