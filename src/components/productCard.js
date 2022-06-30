@@ -22,6 +22,7 @@ import groceries from "../groceries.svg";
 import { supabase } from "../supabase";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import MktOrder from "./mktOrder";
 
 export default function ProductTemplate(props) {
   const [orders, setOrders] = useState([]);
@@ -93,18 +94,28 @@ export default function ProductTemplate(props) {
             justifyContent={"space-between"}
             alignItems={"center"}
           >
-            <Button
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-              _focus={{
-                bg: "gray.200",
-              }}
-              as={Link}
-              to={"/order/addorder"}
-            >
-              Order
-            </Button>
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  _focus={{
+                    bg: "blue.300",
+                  }}
+                >
+                  Order
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Order form</PopoverHeader>
+                <PopoverBody>
+                  <MktOrder userid={props.userid} useremail={props.useremail} />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
             <Popover>
               <PopoverTrigger>
                 <Button
