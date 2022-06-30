@@ -60,7 +60,7 @@ import { Link } from 'react-router-dom';
               to={"/invoice/"+ props.name}>
               Month
             </Text>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
+            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500} as={Link} to={"/invoice/"+ props.name}>
               {props.name}
             </Heading>
             <Stack direction={'row'} align={'center'}>
