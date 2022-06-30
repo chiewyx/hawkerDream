@@ -2,14 +2,15 @@ import SignupCard from "./signup";
 import LoginCard from "./login";
 import Dashboard from "./dashboard";
 import { Routes, Route } from "react-router-dom";
+import { RequireAuth } from "../components/privateRoute";
 import LandingPage from "./landing";
 import UserProfileEdit from "./update";
 import SplitWithImage from "./features";
 import SplitWithImag from "./featuresupplier";
 
 import Order from "./order";
-import UpdateOrder from "./newOrder"; 
-import AddOrder from "./addOrder"; 
+import UpdateOrder from "./newOrder";
+import AddOrder from "./addOrder";
 
 import Invoice from "./invoice";
 import JanInvoice from "./months/january";
@@ -37,12 +38,20 @@ export default function App() {
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/signup" exact element={<SignupCard />} />
         <Route path="/login" exact element={<LoginCard />} />
-        <Route path="/dashboard" exact element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              {" "}
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
         <Route path="/dashboard/update" exact element={<UserProfileEdit />} />
         <Route path="/hawker" exact element={<SplitWithImage />} />
         <Route path="/supplier" exact element={<SplitWithImag />} />
         <Route path="/invoice" exact element={<DisplayMonth />} />
-        
+
         <Route path="/invoice/January" exact element={<JanInvoice />} />
         <Route path="/invoice/February" exact element={<FebInvoice />} />
         <Route path="/invoice/March" exact element={<MarInvoice />} />
@@ -55,8 +64,12 @@ export default function App() {
         <Route path="/invoice/October" exact element={<OctInvoice />} />
         <Route path="/invoice/November" exact element={<NovInvoice />} />
         <Route path="/invoice/December" exact element={<DecInvoice />} />
-        <Route path="/invoice/updateinvoice" exact element={<UpdateInvoice />} />
-        
+        <Route
+          path="/invoice/updateinvoice"
+          exact
+          element={<UpdateInvoice />}
+        />
+
         <Route path="/order/updateorder" exact element={<UpdateOrder />} />
         <Route path="/order/addorder" exact element={<AddOrder />} />
         <Route path="/order" exact element={<Order />} />
