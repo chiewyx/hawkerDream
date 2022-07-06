@@ -7,21 +7,28 @@ import {
   Button,
   useToast,
   useColorModeValue,
+  Text,
+  IconButton,
+  Icon,
 } from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 export default function AddOrder() {
   const [list, setList] = useState([]);
   const user = supabase.auth.user();
   const [loading, setLoading] = useState(true);
-  const [checked, setChecked] = useState([]);
+
+  const [checked, setChecked] = useState(new Array(256).fill(false));
+
   const [customerName, setCustomerName] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryDate, setDeliveryDate] = useState(new Date());
-  const [quantity, setQuantity] = useState([]);
+  const [quantity, setQuantity] = useState(new Array(256).fill(0));
+  const [totalAmt, setTotalAmt] = useState(0);
 
   const toast = useToast();
 
@@ -39,10 +46,32 @@ export default function AddOrder() {
     setList(itemList);
   };
 
+  const [orderedItems, setOrderedItems] = useState([]);
+
+  const handleChange = (item, event, index) => {
+    if (event.target.checked) {
+      setOrderedItems([...orderedItems, item.item]);
+      checked[index] = true;
+
+      // setTotalAmt(totalAmt + item.price);
+      // add item to orderedItems array
+    } else {
+      // remove item from orderedItems array
+      setOrderedItems((cartItem) =>
+        cartItem.filter((i) => i.item !== item.item)
+      );
+      checked[index] = false;
+      // setTotalAmt((total) => total - item.price);
+    }
+  };
+
+  /* 
   const [orderInfo, setOrderInfo] = useState({
     items: [],
     response: [],
   });
+
+  
 
   const handleCheck = (e) => {
     // Destructuring
@@ -67,13 +96,37 @@ export default function AddOrder() {
       });
     }
   };
+  */
 
-  const handleQuantity = (event, index) => {
+  /*
+  const handleQuantity = (item, event, index) => {
     const newQuantity = [...quantity];
-
     newQuantity[index] = event.target.value;
-
     setQuantity(newQuantity);
+
+    if (checked[index]) {
+      setTotalAmt(totalAmt + (item.price * event.target.value));
+    } else {
+      setTotalAmt((total) => total - (item.price * event.target.value));
+    }
+  };
+
+  */
+
+  const decreaseQuantity = (item, index) => {
+    const newQuantity = [...quantity];
+    newQuantity[index] = newQuantity[index] === 0 ? 0 : newQuantity[index] - 1;
+    setQuantity(newQuantity);
+
+    setTotalAmt(totalAmt - item.price);
+  };
+
+  const increaseQuantity = (item, index) => {
+    const newQuantity = [...quantity];
+    newQuantity[index] = newQuantity[index] + 1;
+    setQuantity(newQuantity);
+
+    setTotalAmt(totalAmt + item.price);
   };
 
   async function insertForm(e) {
@@ -84,13 +137,14 @@ export default function AddOrder() {
       const updates = {
         user_id: user.id,
         user_email: user.email,
-        item_list: orderInfo.response,
+        item_list: orderedItems,
         delivery_date: deliveryDate,
         delivery_address: deliveryAddress,
         customer_name: customerName,
         contact_number: contactNum,
         quantity: quantity.filter((e) => e),
-        completed: false, 
+        total_cost: totalAmt,
+        completed: false,
         created_at: new Date(),
       };
 
@@ -165,34 +219,47 @@ export default function AddOrder() {
               />
             </Grid>
 
-            <Grid templateColumns="repeat(2,1fr)" gap={6}>
-              <text> Item </text>
-              <text> Quantity </text>
+            <Grid templateColumns="repeat(3,1fr)" gap={6}>
+              <Text fontWeight="semibold"> Item </Text>
+              <Text fontWeight="semibold"> Price </Text>
+              <Text fontWeight="semibold"> Quantity </Text>
             </Grid>
 
             {list.map((item, index) => (
               <div key={index}>
-                <Grid templateColumns="repeat(2,1fr)" gap={5}>
+                <Grid templateColumns="repeat(3,1fr)" gap={6}>
                   <Box>
                     <input
                       value={item.item}
                       type="checkbox"
-                      onChange={handleCheck}
-                      id={index}
+                      onChange={(event) => handleChange(item, event, index)}
                     />
+
                     {item.item}
                   </Box>
+                  ${item.price}
+                  <Box>
+                    <IconButton
+                      icon={<MinusIcon />}
+                      w={7}
+                      h={7}
+                      onClick={() => decreaseQuantity(item, index)}
+                    />
 
-                  <input
-                    type="number"
-                    min="0"
-                    name="quantity"
-                    id="quantity"
-                    onChange={(e) => handleQuantity(e, index)}
-                  />
+                    {quantity[index]}
+
+                    <IconButton
+                      icon={<AddIcon />}
+                      w={7}
+                      h={7}
+                      onClick={() => increaseQuantity(item, index)}
+                    />
+                  </Box>
                 </Grid>
               </div>
             ))}
+
+            <Text> Total: ${totalAmt} </Text>
 
             <Button
               bg={"blue.400"}

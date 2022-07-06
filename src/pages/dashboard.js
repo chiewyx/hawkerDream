@@ -115,7 +115,7 @@ export default function Dashboard() {
                 lineHeight={1.2}
                 fontSize={useBreakpointValue({ base: "3xl", md: "4xl" })}
               >
-                Welcome back {first_name}
+                Welcome back, {first_name}
               </Text>
               <Stack direction={"row"}>
                 <Button

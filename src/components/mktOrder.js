@@ -6,8 +6,10 @@ import {
   Flex,
   Button,
   useToast,
-  useColorModeValue,
+  useColorModeValue, IconButton, Text,
 } from "@chakra-ui/react";
+
+import { AddIcon, MinusIcon } from "@chakra-ui/icons"; 
 
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
@@ -21,7 +23,8 @@ export default function MktOrder(props) {
   const [contactNum, setContactNum] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryDate, setDeliveryDate] = useState(new Date());
-  const [quantity, setQuantity] = useState([]);
+  const [quantity, setQuantity] = useState(new Array(256).fill(0));
+  const [totalAmt, setTotalAmt] = useState(0);
 
   const toast = useToast();
 
@@ -67,6 +70,8 @@ export default function MktOrder(props) {
       });
     }
   };
+  
+  /* 
 
   const handleQuantity = (event, index) => {
     const newQuantity = [...quantity];
@@ -75,6 +80,25 @@ export default function MktOrder(props) {
 
     setQuantity(newQuantity);
   };
+
+  */ 
+
+  const decreaseQuantity = (item, index) => {
+    const newQuantity = [...quantity];
+    newQuantity[index] = newQuantity[index] === 0 ? 0 : newQuantity[index] - 1;
+    setQuantity(newQuantity);
+
+    setTotalAmt(totalAmt - item.price);
+  };
+
+  const increaseQuantity = (item, index) => {
+    const newQuantity = [...quantity];
+    newQuantity[index] = newQuantity[index] + 1;
+    setQuantity(newQuantity);
+
+    setTotalAmt(totalAmt + item.price);
+  };
+
 
   async function insertForm(e) {
     e.preventDefault();
@@ -165,7 +189,7 @@ export default function MktOrder(props) {
 
             {list.map((item, index) => (
               <div key={index}>
-                <Grid templateColumns="repeat(2,1fr)" gap={5}>
+                <Grid templateColumns="repeat(3,1fr)" gap={5}>
                   <Box>
                     <input
                       value={item.item}
@@ -176,15 +200,30 @@ export default function MktOrder(props) {
                     {item.item}
                   </Box>
 
-                  <input
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                    onChange={(e) => handleQuantity(e, index)}
-                  />
+                  ${item.price}
+
+                  <Box>
+                    <IconButton
+                      icon={<MinusIcon />}
+                      w={7}
+                      h={7}
+                      onClick={() => decreaseQuantity(item, index)}
+                    />
+
+                    {quantity[index]}
+
+                    <IconButton
+                      icon={<AddIcon />}
+                      w={7}
+                      h={7}
+                      onClick={() => increaseQuantity(item, index)}
+                    />
+                  </Box>
                 </Grid>
               </div>
             ))}
+
+            <Text> Total: ${totalAmt} </Text>
 
             <Button
               bg={"blue.400"}

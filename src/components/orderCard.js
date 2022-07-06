@@ -59,7 +59,7 @@ export default function OrderCard() {
     <div>
       <Center>
         <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
-          Incomplete orders
+          Your orders
         </Box>
       </Center>
       <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20} gap={6}>
@@ -81,16 +81,16 @@ export default function OrderCard() {
                 # {info.id}{" "}
               </Text>
               <Spacer />
-              {info.customer_name}
+              Customer name: {info.customer_name}
               <Spacer />
-              {info.contact_number}
+              Contact number: {info.contact_number}
               <Spacer />
-              {info.delivery_date}
+              Delivery date: {info.delivery_date}
               <Spacer />
-              {info.delivery_address}
+              Address: {info.delivery_address}
               <Spacer />
+              Total Amount: ${info.total_cost}
               <Box bg="white" w="100%" p={4} color="white"></Box>
-
               <Grid templateColumns="repeat(2, 1fr)" gap={50}>
                 <Box>
                   {info.item_list.map((item) => (
@@ -107,6 +107,8 @@ export default function OrderCard() {
                   ))}
                 </Box>
               </Grid>
+      
+        
               <Button
                 icon={<CheckIcon />}
                 size="sm"

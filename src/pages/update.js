@@ -148,6 +148,7 @@ export default function UserProfileEdit() {
             </FormControl>
             <Select
               placeholder="Select profile"
+              value={profile_type || "Select profile"}
               onChange={(e) => setProfileType(e.target.value)}
             >
               <option value="hawker">Hawker</option>

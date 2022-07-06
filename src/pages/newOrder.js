@@ -11,6 +11,7 @@ import {
   useToast,
   useColorModeValue,
   Spacer,
+  FormControl,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
@@ -36,21 +37,29 @@ export default function UpdateOrder() {
   };
 
   const addItem = async (itemName) => {
-    let { data: item } = await supabase
-      .from("orderList")
-      .insert({ item: itemName, user_id: user.id, price: price })
-      .single();
-    setList([...list, item]);
-    setNewItem(""); 
-    setPrice(""); 
+    if (itemName === "" && price === "") {
+      alert("Item Name and price cannot be empty!");
+    } else if (itemName === "") {
+      alert("Item Name cannot be empty");
+    } else if (price === "") {
+      alert("Price cannot be empty");
+    } else {
+      let { data: item } = await supabase
+        .from("orderList")
+        .insert({ item: itemName, user_id: user.id, price: price })
+        .single();
+      setList([...list, item]);
+      setNewItem("");
+      setPrice("");
 
-    toast({
-      title: "Item added",
-      description: "You've added your item successfully",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+      toast({
+        title: "Item added",
+        description: "You've added your item successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   const deleteItem = async (itemId) => {
@@ -88,6 +97,7 @@ export default function UpdateOrder() {
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
             <Input
               type="text"
+              required
               placeholder="Add item here"
               value={newItem}
               onChange={(event) => {
@@ -96,7 +106,9 @@ export default function UpdateOrder() {
             />
 
             <Input
-              type="text"
+              type="number"
+              min="1"
+              step="any"
               placeholder="Insert price here"
               value={price}
               onChange={(event) => {
@@ -108,8 +120,7 @@ export default function UpdateOrder() {
 
           {list.map((item) => (
             <li key={item.id}>
-              {item.item}
-              {item.price}
+              {item.item}${item.price}
               <IconButton
                 icon={<DeleteIcon />}
                 onClick={() => deleteItem(item.id)}
