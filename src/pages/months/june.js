@@ -25,6 +25,7 @@ import {
         .select(`month, cost, supplier, id, items`)
         .eq("user_id", user.id)
         .eq("month", "June")
+        .eq("deleted", false)
         .eq("deleted", false);
   
       const newData = Array.from(data);

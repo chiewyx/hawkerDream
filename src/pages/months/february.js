@@ -28,7 +28,8 @@ import {
         .from("invoices")
         .select(`month, cost, supplier, id, items`)
         .eq("user_id", user.id)
-        .eq("month", "February");
+        .eq("month", "February")
+        .eq("deleted", false);
   
       const newData = Array.from(data);
       setResults(newData);
