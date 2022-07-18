@@ -11,16 +11,22 @@ import {
   Spacer,
   HStack,
   useToast,
+  IconButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
+import { CheckIcon } from "@chakra-ui/icons";
 
-export default function ProductSimple(props) {
+export default function OrderCard() {
   const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
-  const toast = useToast(); 
+  const toast = useToast();
+
+  useEffect(() => {
+    fetchList();
+  }, []);
 
   const fetchList = async () => {
     // get the orders keyed in manually by the suppliers
@@ -34,16 +40,12 @@ export default function ProductSimple(props) {
     setOrderList(orderList);
   };
 
-  useEffect(() => {
-    fetchList();
-  }, []);
-
   const handleCompleted = async (orderId) => {
-   const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("orders")
       .update({ completed: true })
-      .match({ id: orderId })
-      
+      .match({ id: orderId });
+
     toast({
       title: "Order Completed",
       description: "You've Completed your order",
@@ -57,7 +59,7 @@ export default function ProductSimple(props) {
     <div>
       <Center>
         <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
-          Incomplete orders
+          Your orders
         </Box>
       </Center>
       <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20} gap={6}>
@@ -65,7 +67,7 @@ export default function ProductSimple(props) {
           <Box
             role={"group"}
             p={6}
-            maxW={"330px"}
+            maxW={"2xl"}
             w={"full"}
             bg={"white"}
             boxShadow={"2xl"}
@@ -74,18 +76,21 @@ export default function ProductSimple(props) {
             zIndex={1}
           >
             <div key={index}>
-             <Text fontWeight="black" fontSize="3xl"> # {info.id} </Text>
-              <Spacer /> 
-              {info.customer_name}
+              <Text fontWeight="black" fontSize="3xl">
+                {" "}
+                #{info.id}{" "}
+              </Text>
               <Spacer />
-              {info.contact_number}
+              Customer name: {info.customer_name}
               <Spacer />
-              {info.delivery_date}
+              Contact number: {info.contact_number}
               <Spacer />
-              {info.delivery_address}
+              Delivery date: {info.delivery_date}
               <Spacer />
+              Address: {info.delivery_address}
+              <Spacer />
+              Total Amount: ${info.total_cost}
               <Box bg="white" w="100%" p={4} color="white"></Box>
-
               <Grid templateColumns="repeat(2, 1fr)" gap={50}>
                 <Box>
                   {info.item_list.map((item) => (
@@ -102,7 +107,16 @@ export default function ProductSimple(props) {
                   ))}
                 </Box>
               </Grid>
-              <Button size="sm" onClick={() => handleCompleted(info.id)} > Completed </Button>
+      
+        
+              <Button
+                icon={<CheckIcon />}
+                size="sm"
+                onClick={() => handleCompleted(info.id)}
+              >
+                {" "}
+                {<CheckIcon />} Completed
+              </Button>
             </div>
           </Box>
         ))}
