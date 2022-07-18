@@ -113,7 +113,7 @@ export default function Dashboard() {
         .eq("completed", true)
         .order("id", true);
       setOrderList(data);
-      setIncompleteNum(count);
+      setCompleteNum(count);
     } else {
       const { data, count } = await supabase
         .from("orders")
