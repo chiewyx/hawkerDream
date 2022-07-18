@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Grid } from "@chakra-ui/react";
 import ProductTemplate from "../components/productCard";
 
+
 export default function Marketplace() {
   //const [orders, setOrders] = useState([]);
   const [supplier, setSupplier] = useState([]);

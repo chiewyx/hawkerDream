@@ -113,6 +113,7 @@ export default function MktOrder(props) {
         delivery_address: deliveryAddress,
         customer_name: customerName,
         contact_number: contactNum,
+        total_cost: totalAmt,
         quantity: quantity.filter((e) => e),
         completed: false, 
         created_at: new Date(),

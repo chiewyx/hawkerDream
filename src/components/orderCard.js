@@ -67,7 +67,7 @@ export default function OrderCard() {
           <Box
             role={"group"}
             p={6}
-            maxW={"330px"}
+            maxW={"2xl"}
             w={"full"}
             bg={"white"}
             boxShadow={"2xl"}
@@ -78,7 +78,7 @@ export default function OrderCard() {
             <div key={index}>
               <Text fontWeight="black" fontSize="3xl">
                 {" "}
-                # {info.id}{" "}
+                #{info.id}{" "}
               </Text>
               <Spacer />
               Customer name: {info.customer_name}
