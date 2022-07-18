@@ -13,7 +13,7 @@ import {
   Center,
   HStack,
   Spacer,
-  Grid
+  Grid,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -36,7 +36,7 @@ export default function Dashboard() {
   const [incompleteNum, setIncompleteNum] = useState();
   const [completeNum, setCompleteNum] = useState();
   const today = new Date();
-  const month = today.toLocaleString('default', { month: 'long' });
+  const month = today.toLocaleString("default", { month: "long" });
   //const [showPassword, setShowPassword] = useState(false);
 
   async function getProfile() {
@@ -70,28 +70,61 @@ export default function Dashboard() {
 
   async function fetchIncomplete() {
     // get the orders keyed in manually by the suppliers
-    const { data, count } = await supabase
-      .from("orders")
-      .select("*", { count: "exact" })
-      .eq("user_id", user.id)
-      .eq("completed", false)
-      .order("id", true);
+    const { data: pp } = await supabase
+      .from("user_profiles")
+      .select("profile_type")
+      .eq("id", user.id)
+      .single();
 
-    setOrderList(data);
-    setIncompleteNum(count);
+    if (pp.profile_type === "supplier") {
+      const { data, count } = await supabase
+        .from("orders")
+        .select("*", { count: "exact" })
+        .eq("user_id", user.id)
+        .eq("completed", false)
+        .order("id", true);
+      setOrderList(data);
+      setIncompleteNum(count);
+    } else {
+      const { data, count } = await supabase
+        .from("orders")
+        .select("*", { count: "exact" })
+        .eq("user_email", user.email)
+        .eq("completed", false)
+        .order("id", true);
+      setOrderList(data);
+      setIncompleteNum(count);
+    }
   }
 
   async function fetchComplete() {
     // get the orders keyed in manually by the suppliers
-    const { data, count } = await supabase
-      .from("orders")
-      .select("*", { count: "exact" })
-      .eq("user_id", user.id)
-      .eq("completed", true)
-      .order("id", true);
+    const { data: pp } = await supabase
+      .from("user_profiles")
+      .select("profile_type")
+      .eq("id", user.id)
+      .single();
 
-    setOrderList(data);
-    setCompleteNum(count);
+    if (pp.profile_type === "supplier") {
+      const { data, count } = await supabase
+        .from("orders")
+        .select("*", { count: "exact" })
+        .eq("user_id", user.id)
+        .eq("completed", true)
+        .order("id", true);
+      setOrderList(data);
+      setIncompleteNum(count);
+    } else {
+      const { data, count } = await supabase
+        .from("orders")
+        .select("*", { count: "exact" })
+        .eq("user_email", user.email)
+        .eq("completed", true)
+        .order("id", true);
+
+      setOrderList(data);
+      setCompleteNum(count);
+    }
   }
 
   useEffect(() => {
@@ -133,9 +166,7 @@ export default function Dashboard() {
     <div>
       <Simple />
       <Flex align={"top"} justify={"center"} bg={"gray.50"} minH={"100vh"}>
-        <VStack
-          w={"full"}
-        >
+        <VStack w={"full"}>
           <Flex
             w={"full"}
             h={"40vh"}
@@ -175,57 +206,62 @@ export default function Dashboard() {
               </Stack>
             </VStack>
           </Flex>
-          <Grid templateColumns='repeat(3, 1fr)' gap={6}>
-          <Box
-            maxW="lg"
-            borderWidth="5px"
-            borderRadius="lg"
-            overflow="hidden"
-            m={50}
-            p={10}
-            textAlign="center"
-          >
-            <CloseIcon boxSize={"50px"} color={"red.500"} />
-            <Heading as="h2" size="xl" mt={6} mb={2}>
-              {incompleteNum} incomplete orders
-            </Heading>
-            <Text size="lg" color={"gray.500"} as={Link} to="/order">
-              {" "}
-              View incomplete orders
-            </Text>
-          </Box>
-          <Box
-            maxW="lg"
-            borderWidth="5px"
-            borderRadius="lg"
-            overflow="hidden"
-            m={50}
-            p={10}
-            textAlign="center"
-          >
-            <CheckCircleIcon boxSize={"50px"} color={"red.500"} />
-            <Heading as="h2" size="xl" mt={6} mb={2}>
-              {completeNum} complete orders
-            </Heading>
-          </Box>
-          <Box
-            maxW="lg"
-            borderWidth="5px"
-            borderRadius="lg"
-            overflow="hidden"
-            m={50}
-            p={10}
-            textAlign="center"
-          >
-            <CalendarIcon boxSize={"50px"} color={"red.500"} />
-            <Heading as="h2" size="xl" mt={6} mb={2}>
-              Invoices
-            </Heading>
-            <Text size="lg" color={"gray.500"} as={Link} to={"/invoice/" + month}>
-              {" "}
-              View your invoices for {month}
-            </Text>
-          </Box>
+          <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+            <Box
+              maxW="lg"
+              borderWidth="5px"
+              borderRadius="lg"
+              overflow="hidden"
+              m={50}
+              p={10}
+              textAlign="center"
+            >
+              <CloseIcon boxSize={"50px"} color={"red.500"} />
+              <Heading as="h2" size="xl" mt={6} mb={2}>
+                {incompleteNum} incomplete orders
+              </Heading>
+              <Text size="lg" color={"gray.500"} as={Link} to="/order">
+                {" "}
+                View incomplete orders
+              </Text>
+            </Box>
+            <Box
+              maxW="lg"
+              borderWidth="5px"
+              borderRadius="lg"
+              overflow="hidden"
+              m={50}
+              p={10}
+              textAlign="center"
+            >
+              <CheckCircleIcon boxSize={"50px"} color={"green.500"} />
+              <Heading as="h2" size="xl" mt={6} mb={2}>
+                {completeNum} complete orders
+              </Heading>
+            </Box>
+            <Box
+              maxW="lg"
+              borderWidth="5px"
+              borderRadius="lg"
+              overflow="hidden"
+              m={50}
+              p={10}
+              textAlign="center"
+            >
+              <CalendarIcon boxSize={"50px"} color={"blue.500"} />
+              <Heading as="h2" size="xl" mt={6} mb={2}>
+                Invoices
+              </Heading>
+              <Text
+                size="lg"
+                color={"gray.500"}
+                as={Link}
+                to={"/invoice/" + month}
+              >
+                {" "}
+                View your invoices for {month}
+              </Text>
+            </Box>
           </Grid>
         </VStack>
       </Flex>
