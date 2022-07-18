@@ -42,7 +42,7 @@ import {
         <Simple />
         <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
           {results.map((result) => (
-            <ProductSimple name={result.month} items={result.items} price={result.cost} supplier={result.supplier}/>
+            <ProductSimple name={result.month} items={result.items} price={result.cost} supplier={result.supplier} id={result.id}/>
           ))}
           <Button
             bg={"blue.400"}

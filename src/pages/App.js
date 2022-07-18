@@ -27,6 +27,7 @@ import OctInvoice from "./months/october";
 import DecInvoice from "./months/december";
 import UpdateInvoice from "./newInvoice";
 import DisplayMonth from "./month";
+import DisplayYear from "./year";
 
 import Marketplace from "./marketplace";
 
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="/dashboard/update" exact element={<UserProfileEdit />} />
         <Route path="/hawker" exact element={<SplitWithImage />} />
         <Route path="/supplier" exact element={<SplitWithImag />} />
+        <Route path="/invoice/year" exact element={<DisplayYear />} />
         <Route path="/invoice" exact element={<DisplayMonth />} />
 
         <Route path="/invoice/January" exact element={<JanInvoice />} />

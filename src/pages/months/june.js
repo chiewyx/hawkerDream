@@ -1,11 +1,6 @@
 import {
     Button,
-    Flex,
     Grid,
-    Heading,
-    HStack,
-    Spacer,
-    TabIndicator,
   } from "@chakra-ui/react";
   import ProductSimple from "../../components/invoiceCard"; 
   import Simple from "../../components/profilebar";
@@ -29,7 +24,8 @@ import {
         .from("invoices")
         .select(`month, cost, supplier, id, items`)
         .eq("user_id", user.id)
-        .eq("month", "June");
+        .eq("month", "June")
+        .eq("deleted", false);
   
       const newData = Array.from(data);
       setResults(newData);
@@ -45,7 +41,7 @@ import {
         <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
         
           {results.map((result) => (
-            <ProductSimple name={result.month} price={result.cost} items={result.items} supplier={result.supplier} items={result.items} />
+            <ProductSimple name={result.month} price={result.cost} items={result.items} supplier={result.supplier} id={result.id} />
           ))}
           <Button
             bg={"blue.400"}

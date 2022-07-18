@@ -122,7 +122,7 @@ export default function UploadImage(props) {
     //setUploading(true);
 
     if (!event.target.files || event.target.files.length === 0) {
-      throw new Error("You must select an image to upload.");
+      throw new Error("You must select a file to upload.");
     }
 
     const file = event.target.files[0];
@@ -136,8 +136,8 @@ export default function UploadImage(props) {
       .upload(`${user.id}/${props.month}/${props.supplier}`, file);
 
       toast({
-        title: "Invoice uploaded",
-        description: "You've uploaded your invoice successfully",
+        title: "file uploaded",
+        description: "You've uploaded your file successfully",
         status: "success",
         duration: 9000,
         isClosable: true,
@@ -212,7 +212,7 @@ export default function UploadImage(props) {
                 top="0"
                 left="0"
                 opacity="0"
-                accept="image/*"
+                accept="image/*, .pdf"
                 onDragEnter={startAnimation}
                 onDragLeave={stopAnimation}
                 onChange={uploadInvoice}

@@ -5,7 +5,7 @@ import { Button, Flex, Grid, Heading, HStack, TabIndicator } from "@chakra-ui/re
 import ProductMonth from "../components/monthCard";
 
 
-export default function DisplayMonth() {
+export default function DisplayMonth(props) {
   const [results, setResults] = useState([]);
   const user = supabase.auth.user();
   async function getInvoices() {

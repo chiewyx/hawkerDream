@@ -26,6 +26,7 @@ export default function UpdateInvoice() {
   const [cost, setCost] = useState();
   const [supplier, setSupplier] = useState();
   const [month, setMonth] = useState();
+  const [year, setYear] = useState();
   const [items, setItem] = useState();
   const toast = useToast();
 
@@ -38,6 +39,7 @@ export default function UpdateInvoice() {
         user_id: user.id,
         user_email: user.email,
         month,
+        year,
         cost,
         supplier,
         items,
@@ -99,6 +101,16 @@ export default function UpdateInvoice() {
               <option value="November">November</option>
               <option value="December">December</option>
             </Select>
+            <FormControl id="year" isRequired>
+                <FormLabel>Year</FormLabel>
+                <Input
+                  placeholder="2021"
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                  value={year || ""}
+                  onChange={(e) => setYear(e.target.value)}
+                />
+              </FormControl>
             <HStack>
               <FormControl id="supplier" isRequired>
                 <FormLabel>Supplier</FormLabel>
