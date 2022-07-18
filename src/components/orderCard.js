@@ -12,10 +12,17 @@ import {
   HStack,
   useToast,
   IconButton,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useDisclosure } from "@chakra-ui/react";
 import { supabase } from "../supabase";
 import { CheckIcon } from "@chakra-ui/icons";
 
@@ -23,6 +30,9 @@ export default function OrderCard() {
   const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
   const toast = useToast();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   useEffect(() => {
     fetchList();
@@ -46,9 +56,11 @@ export default function OrderCard() {
       .update({ completed: true })
       .match({ id: orderId });
 
+       
+
     toast({
       title: "Order Completed",
-      description: "You've Completed your order",
+      description: "You've completed your order",
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -99,6 +111,7 @@ export default function OrderCard() {
                     </Grid>
                   ))}
                 </Box>
+
                 <Box>
                   {info.quantity.map((quantity) => (
                     <Grid templateColumns="repeat(2, 1fr)" gap={6}>
@@ -107,16 +120,56 @@ export default function OrderCard() {
                   ))}
                 </Box>
               </Grid>
-      
-        
-              <Button
-                icon={<CheckIcon />}
-                size="sm"
-                onClick={() => handleCompleted(info.id)}
-              >
-                {" "}
-                {<CheckIcon />} Completed
-              </Button>
+              <div>
+                <Button
+                  mt={10}
+                  w={"full"}
+                  bg={"green.400"}
+                  color={"white"}
+                  rounded={"xl"}
+                  boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+                  _hover={{
+                    bg: "green.500",
+                  }}
+                  _focus={{
+                    bg: "green.500",
+                  }}
+                  onClick={onOpen}
+                >
+                  Completed
+                </Button>
+
+                <AlertDialog
+                  isOpen={isOpen}
+                  leastDestructiveRef={cancelRef}
+                  onClose={onClose}
+                >
+                  <AlertDialogOverlay>
+                    <AlertDialogContent>
+                      <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                        Is your order completed?
+                      </AlertDialogHeader>
+
+                      <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                      </AlertDialogBody>
+
+                      <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                          Cancel
+                        </Button>
+                        <Button
+                          colorScheme="green"
+                          onClick={() => handleCompleted(info.id)}
+                          ml={3}
+                        >
+                          Complete Order
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+                </AlertDialog>
+              </div>
             </div>
           </Box>
         ))}
