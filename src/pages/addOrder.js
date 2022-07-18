@@ -42,13 +42,13 @@ export default function AddOrder() {
   }, []);
 
   const fetchList = async () => {
-    const { data: itemList } = await supabase
+      const { data: itemList } = await supabase
       .from("orderList")
       .select("*")
       .eq("user_id", user.id)
       .order("item", true);
-
-    setList(itemList);
+      setList(itemList);
+   
   };
 
   const [orderedItems, setOrderedItems] = useState([]);
