@@ -47,27 +47,22 @@ export default function MktOrder(props) {
     response: [],
   });
 
-  const handleCheck = (e) => {
-    // Destructuring
-    const { value, checked } = e.target;
-    const { items } = orderInfo;
+  const [orderedItems, setOrderedItems] = useState([]);
 
-    console.log(`${value} is ${checked}`);
+  const handleChange = (item, event, index) => {
+    if (event.target.checked) {
+      setOrderedItems([...orderedItems, item.item]);
+      checked[index] = true;
 
-    // Case 1 : The user checks the box
-    if (checked) {
-      setOrderInfo({
-        items: [...items, value],
-        response: [...items, value],
-      });
-    }
-
-    // Case 2  : The user unchecks the box
-    else {
-      setOrderInfo({
-        items: items.filter((e) => e !== value),
-        response: items.filter((e) => e !== value),
-      });
+      // setTotalAmt(totalAmt + item.price);
+      // add item to orderedItems array
+    } else {
+      // remove item from orderedItems array
+      setOrderedItems((cartItem) =>
+        cartItem.filter((i) => i.item !== item.item)
+      );
+      checked[index] = false;
+      // setTotalAmt((total) => total - item.price);
     }
   };
   
@@ -102,20 +97,21 @@ export default function MktOrder(props) {
 
   async function insertForm(e) {
     e.preventDefault();
+
     try {
       setLoading(true);
-      const user = supabase.auth.user();
+      
       const updates = {
         user_id: props.userid,
-        user_email: props.useremail,
-        item_list: orderInfo.response,
+        user_email: user.email,
+        item_list: orderedItems,
         delivery_date: deliveryDate,
         delivery_address: deliveryAddress,
         customer_name: customerName,
         contact_number: contactNum,
-        total_cost: totalAmt,
         quantity: quantity.filter((e) => e),
-        completed: false, 
+        total_cost: totalAmt,
+        completed: false,
         created_at: new Date(),
       };
 
@@ -195,7 +191,7 @@ export default function MktOrder(props) {
                     <input
                       value={item.item}
                       type="checkbox"
-                      onChange={handleCheck}
+                      onChange={(event) => handleChange(item, event, index)}
                       id={index}
                     />
                     {item.item}

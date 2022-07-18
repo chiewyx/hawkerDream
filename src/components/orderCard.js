@@ -29,6 +29,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 export default function OrderCard() {
   const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
+  const [newP, setP] = useState("");
   const toast = useToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,15 +40,36 @@ export default function OrderCard() {
   }, []);
 
   const fetchList = async () => {
+    const user = supabase.auth.user();
     // get the orders keyed in manually by the suppliers
-    const { data: orderList } = await supabase
-      .from("orders")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("completed", false)
-      .order("id", true);
+    const { data: pp } = await supabase
+      .from("user_profiles")
+      .select("profile_type")
+      .eq("id", user.id)
+      .single();
 
-    setOrderList(orderList);
+      //const pp = JSON.stringify(profile);
+
+    if (pp.profile_type === "supplier") {
+      const { data: orderList } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("completed", false)
+        .order("id", true);
+      //console.log(pp);
+
+      setOrderList(orderList);
+    } else {
+      const { data: orderList } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("user_email", user.email)
+        .eq("completed", false)
+        .order("id", true);
+      //console.log(pp);
+      setOrderList(orderList);
+    }
   };
 
   const handleCompleted = async (orderId) => {
@@ -55,8 +77,6 @@ export default function OrderCard() {
       .from("orders")
       .update({ completed: true })
       .match({ id: orderId });
-
-       
 
     toast({
       title: "Order Completed",
