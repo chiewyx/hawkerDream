@@ -6,7 +6,7 @@ import {
   Flex,
   Button,
   useToast,
-  useColorModeValue, IconButton, Text,
+  useColorModeValue, IconButton, Text, FormControl, FormLabel,
 } from "@chakra-ui/react";
 
 import { AddIcon, MinusIcon } from "@chakra-ui/icons"; 
@@ -131,57 +131,77 @@ export default function MktOrder(props) {
   return (
     <div>
       <form onSubmit={insertForm}>
-        
+     
           <Stack
             spacing={4}
-            w={"full"}
-            maxW={"xl"}
+            W={"3xl"}
             bg={useColorModeValue("white", "gray.700")}
             rounded={"xl"}
             boxShadow={"lg"}
             p={6}
           >
-            <Grid templateColumns="repeat(2,1fr)" gap={6}>
-              <label for="customerName"> Customer Name </label>
-              <input
-                type="text"
-                name="customerName"
-                id="customerName"
-                onChange={(e) => setCustomerName(e.target.value)}
-                value={customerName || ""}
-              />
+            <Grid templateColumns="repeat(1,1fr)" gap={6}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="customerName">Customer name</FormLabel>
 
-              <label for="contactNum"> Contact Number </label>
-              <input
-                type="int"
-                name="contactNum"
-                id="contactNum"
-                onChange={(e) => setContactNum(e.target.value)}
-                value={contactNum || ""}
-              />
+                <input
+                  type="text"
+                  name="customerName"
+                  id="customerName"
+                  minLength={1}
+                  maxLength={10}
+                  required
+                  value={customerName || ""}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                />
+              </FormControl>
 
-              <label for="deliveryAddress"> Delivery Address</label>
-              <input
-                type="text"
-                name="deliveryAddress"
-                id="deliveryAddress"
-                onChange={(e) => setDeliveryAddress(e.target.value)}
-                value={deliveryAddress || ""}
-              />
+              <FormControl isRequired>
+                <FormLabel htmlFor="contactNum">Contact Number</FormLabel>
 
-              <label for="deliveryDate"> Delivery Date</label>
-              <input
-                type="date"
-                name="deliveryDate"
-                id="deliveryDate"
-                onChange={(e) => setDeliveryDate(e.target.value)}
-                value={deliveryDate || ""}
-              />
+                <input
+                  type="int"
+                  name="contactNum"
+                  id="contactNum"
+                  minLength={8}
+                  maxLength={8}
+                  required
+                  value={contactNum || ""}
+                  onChange={(e) => setContactNum(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel htmlFor="deliveryAddress">
+                  Delivery Address
+                </FormLabel>
+                <input
+                  type="text"
+                  name="deliveryAddress"
+                  id="deliveryAddress"
+                  required
+                  onChange={(e) => setDeliveryAddress(e.target.value)}
+                  value={deliveryAddress || ""}
+                />
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel htmlFor="deliveryDate">Delivery Date</FormLabel>
+                <input
+                  type="date"
+                  name="deliveryDate"
+                  id="deliveryDate"
+                  required
+                  onChange={(e) => setDeliveryDate(e.target.value)}
+                  value={deliveryDate || ""}
+                />
+              </FormControl>
             </Grid>
 
-            <Grid templateColumns="repeat(2,1fr)" gap={6}>
-              <text> Item </text>
-              <text> Quantity </text>
+            <Grid templateColumns="repeat(3,1fr)" gap={6}>
+              <Text fontWeight="semibold"> Item </Text>
+              <Text fontWeight="semibold"> Price </Text>
+              <Text fontWeight="semibold"> Quantity </Text>
             </Grid>
 
             {list.map((item, index) => (
@@ -242,7 +262,7 @@ export default function MktOrder(props) {
             >
               Upload order
             </Button>
-          </Stack>
+          </Stack> 
       </form>
     </div>
   );
