@@ -238,6 +238,17 @@ export default function Dashboard() {
               <Heading as="h2" size="xl" mt={6} mb={2}>
                 {completeNum} complete orders
               </Heading>
+
+              <Text
+                size="lg"
+                color={"gray.500"}
+                as={Link}
+                to={"/order/completedorders"}
+              >
+                {" "}
+                View your completed orders
+              </Text>
+
             </Box>
             <Box
               maxW="lg"
