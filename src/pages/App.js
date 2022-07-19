@@ -11,6 +11,7 @@ import SplitWithImag from "./featuresupplier";
 import Order from "./order";
 import UpdateOrder from "./newOrder";
 import AddOrder from "./addOrder";
+import CompletedOrder from "./completedOrder"; 
 
 import Invoice from "./invoice";
 import JanInvoice from "./months/january";
@@ -75,6 +76,7 @@ export default function App() {
         <Route path="/order/updateorder" exact element={<UpdateOrder />} />
         <Route path="/order/addorder" exact element={<AddOrder />} />
         <Route path="/order" exact element={<Order />} />
+        <Route path="/order/completedorders" exact element={<CompletedOrder />} />
         <Route path="/marketplace" exact element={<Marketplace />} />
       </Routes>
     </div>
