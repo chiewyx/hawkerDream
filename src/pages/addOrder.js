@@ -298,7 +298,9 @@ export default function AddOrder() {
                     {item.item}
                   </Box>
                   ${item.price}
+                  {item.units}
                   <Box>
+                  
                     <IconButton
                       icon={<MinusIcon />}
                       w={7}
