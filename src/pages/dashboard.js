@@ -37,6 +37,7 @@ export default function Dashboard() {
   const [completeNum, setCompleteNum] = useState();
   const today = new Date();
   const month = today.toLocaleString("default", { month: "long" });
+  const [totalCost, setTotalCost] = useState("");
   //const [showPassword, setShowPassword] = useState(false);
 
   async function getProfile() {
@@ -66,6 +67,21 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function getTotalCost() {
+    const user = supabase.auth.user();
+    // get the orders keyed in manually by the suppliers
+    const { data: pp } = await supabase
+      .from("invoices")
+      .select("cost")
+      .eq("month", month)
+      .eq("user_id", user.id);
+
+    //const pp = JSON.stringify(profile);
+    console.log(pp); 
+
+    setTotalCost(pp.reduce((partialSum, a) => partialSum + a.cost, 0));
   }
 
   async function fetchIncomplete() {
@@ -131,6 +147,7 @@ export default function Dashboard() {
     getProfile();
     fetchIncomplete();
     fetchComplete();
+    getTotalCost();
   }, []);
 
   async function updateProfile(e) {
@@ -236,7 +253,7 @@ export default function Dashboard() {
             >
               <CheckCircleIcon boxSize={"50px"} color={"green.500"} />
               <Heading as="h2" size="xl" mt={6} mb={2}>
-                {completeNum} complete orders
+                {completeNum} completed orders
               </Heading>
 
               <Text
@@ -248,7 +265,6 @@ export default function Dashboard() {
                 {" "}
                 View your completed orders
               </Text>
-
             </Box>
             <Box
               maxW="lg"
@@ -259,10 +275,13 @@ export default function Dashboard() {
               p={10}
               textAlign="center"
             >
-              <CalendarIcon boxSize={"50px"} color={"blue.500"} />
-              <Heading as="h2" size="xl" mt={6} mb={2}>
-                Invoices
-              </Heading>
+              <CalendarIcon boxSize={"50px"} color={"blue.500"} mt={6} mb={2} />
+              <Spacer /> 
+              <p> Your total invoice amount: 
+              <Heading as="h2" size="xl">
+              ${totalCost}
+              </Heading></p>
+             
               <Text
                 size="lg"
                 color={"gray.500"}
@@ -270,6 +289,7 @@ export default function Dashboard() {
                 to={"/invoice/" + month}
               >
                 {" "}
+                
                 View your invoices for {month}
               </Text>
             </Box>
