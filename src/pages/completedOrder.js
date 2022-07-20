@@ -10,7 +10,7 @@ import {
   Grid,
   Spacer,
   HStack,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import folder from "../folder.svg";
@@ -69,14 +69,32 @@ export default function OrderCard() {
   return (
     <div>
       <Simple />
-      <Box
-        bg="white"
-        w="30%"
-        p={4}
-        color="white"
-        rounded="md"
-        align="center"
-      ></Box>
+
+      <HStack>
+        <Spacer />
+
+        <Button
+          bg={"blue.400"}
+          rounded={"full"}
+          color={"white"}
+          _hover={{ bg: "blue.500" }}
+          as={Link}
+          to="/order/updateorder"
+        >
+          Update Order List
+        </Button>
+
+        <Button
+          bg={"blue.400"}
+          rounded={"full"}
+          color={"white"}
+          _hover={{ bg: "blue.500" }}
+          as={Link}
+          to="/order/addorder"
+        >
+          Add order
+        </Button>
+      </HStack>
 
       <Center>
         <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
