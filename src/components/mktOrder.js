@@ -218,6 +218,7 @@ export default function MktOrder(props) {
                   </Box>
 
                   ${item.price}
+                  {item.units}
 
                   <Box>
                     <IconButton
