@@ -57,9 +57,16 @@ export default function UpdateInvoice() {
       alert(error.message);
     } finally {
       setLoading(false);
+      toast({
+        title: "Invoice uploaded",
+        description: "You've uploaded your invoice successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
-  
+
   return (
     <div>
       <Simple />
@@ -84,33 +91,34 @@ export default function UpdateInvoice() {
               Insert Invoice
             </Heading>
 
-            <Select
-              placeholder="Select month"
-              onChange={(e) => setMonth(e.target.value)}
-            >
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </Select>
+            <FormControl isRequired>
+              <FormLabel> Select month </FormLabel>
+              <Select onChange={(e) => setMonth(e.target.value)}>
+                <option value="">Please select a month </option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </Select>
+            </FormControl>
             <FormControl id="year" isRequired>
-                <FormLabel>Year</FormLabel>
-                <Input
-                  placeholder="2021"
-                  _placeholder={{ color: "gray.500" }}
-                  type="text"
-                  value={year || ""}
-                  onChange={(e) => setYear(e.target.value)}
-                />
-              </FormControl>
+              <FormLabel>Year</FormLabel>
+              <Input
+                placeholder="2021"
+                _placeholder={{ color: "gray.500" }}
+                type="text"
+                value={year || ""}
+                onChange={(e) => setYear(e.target.value)}
+              />
+            </FormControl>
             <HStack>
               <FormControl id="supplier" isRequired>
                 <FormLabel>Supplier</FormLabel>
@@ -134,17 +142,17 @@ export default function UpdateInvoice() {
               </FormControl>
             </HStack>
             <FormControl id="items" isRequired>
-                <FormLabel>Items purchased</FormLabel>
-                <Input
-                  placeholder="Chicken, pork, etc."
-                  _placeholder={{ color: "gray.500" }}
-                  type="text"
-                  value={items || ""}
-                  onChange={(e) => setItem(e.target.value)}
-                />
-              </FormControl>
-            
-            <UploadImage month={month} supplier={supplier}/>
+              <FormLabel>Items purchased</FormLabel>
+              <Input
+                placeholder="Chicken, pork, etc."
+                _placeholder={{ color: "gray.500" }}
+                type="text"
+                value={items || ""}
+                onChange={(e) => setItem(e.target.value)}
+              />
+            </FormControl>
+
+            <UploadImage month={month} supplier={supplier} />
             <Stack spacing={6} direction={["column", "row"]}>
               <Button
                 bg={"red.400"}
@@ -164,6 +172,7 @@ export default function UpdateInvoice() {
                   bg: "blue.500",
                 }}
                 type="submit"
+                /* 
                 onClick={() =>
                   toast({
                     title: "Invoice uploaded",
@@ -173,6 +182,7 @@ export default function UpdateInvoice() {
                     isClosable: true,
                   })
                 }
+                */ 
               >
                 Update
               </Button>
