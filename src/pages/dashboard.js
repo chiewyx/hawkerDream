@@ -275,12 +275,12 @@ export default function Dashboard() {
               p={10}
               textAlign="center"
             >
-              <CalendarIcon boxSize={"50px"} color={"blue.500"} mt={6} mb={2} />
-              <Spacer /> 
+              <CalendarIcon boxSize={"50px"} color={"blue.500"} mt={2} mb={5} />
+             
               <p> Your total invoice amount: 
               <Heading as="h2" size="xl">
               ${totalCost}
-              </Heading></p>
+              </Heading> </p>
              
               <Text
                 size="lg"
@@ -292,6 +292,7 @@ export default function Dashboard() {
                 
                 View your invoices for {month}
               </Text>
+            
             </Box>
           </Grid>
         </VStack>
