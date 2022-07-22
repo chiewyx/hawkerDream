@@ -5,24 +5,15 @@ import {
   Button,
   Grid,
   Spacer,
-  useToast,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
+  HStack,
 } from "@chakra-ui/react";
-import { useState, useEffect, useRef } from "react";
-import { useDisclosure } from "@chakra-ui/react";
-import { supabase } from "../supabase";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "../../supabase";
+import Simple from "../../components/profilebar";
 
 export default function OrderCard() {
   const [orderList, setOrderList] = useState([]);
-  const toast = useToast();
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
 
   useEffect(() => {
     fetchList();
@@ -30,6 +21,7 @@ export default function OrderCard() {
 
   const fetchList = async () => {
     const user = supabase.auth.user();
+    // get the orders keyed in manually by the suppliers
     const { data: pp } = await supabase
       .from("user_profiles")
       .select("profile_type")
@@ -41,7 +33,7 @@ export default function OrderCard() {
         .from("orders")
         .select("*")
         .eq("user_id", user.id)
-        .eq("completed", false)
+        .eq("completed", true)
         .order("id", true);
 
       setOrderList(orderList);
@@ -50,33 +42,46 @@ export default function OrderCard() {
         .from("orders")
         .select("*")
         .eq("user_email", user.email)
-        .eq("completed", false)
+        .eq("completed", true)
         .order("id", true);
 
       setOrderList(orderList);
     }
   };
 
-  const handleCompleted = async (orderId) => {
-    const { data, error } = await supabase
-      .from("orders")
-      .update({ completed: true })
-      .match({ id: orderId });
-
-    toast({
-      title: "Order Completed",
-      description: "You've completed your order",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
-  };
-
   return (
     <div>
+      <Simple />
+
+      <HStack>
+        <Spacer />
+
+        <Button
+          bg={"blue.400"}
+          rounded={"full"}
+          color={"white"}
+          _hover={{ bg: "blue.500" }}
+          as={Link}
+          to="/order/updateorder"
+        >
+          Update Order List
+        </Button>
+
+        <Button
+          bg={"blue.400"}
+          rounded={"full"}
+          color={"white"}
+          _hover={{ bg: "blue.500" }}
+          as={Link}
+          to="/order/addorder"
+        >
+          Add order
+        </Button>
+      </HStack>
+
       <Center>
         <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
-          Your orders
+          Your Completed Orders
         </Box>
       </Center>
       <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20} gap={6}>
@@ -125,56 +130,6 @@ export default function OrderCard() {
                   ))}
                 </Box>
               </Grid>
-              <div>
-                <Button
-                  mt={10}
-                  w={"full"}
-                  bg={"green.400"}
-                  color={"white"}
-                  rounded={"xl"}
-                  boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-                  _hover={{
-                    bg: "green.500",
-                  }}
-                  _focus={{
-                    bg: "green.500",
-                  }}
-                  onClick={onOpen}
-                >
-                  Completed
-                </Button>
-
-                <AlertDialog
-                  isOpen={isOpen}
-                  leastDestructiveRef={cancelRef}
-                  onClose={onClose}
-                >
-                  <AlertDialogOverlay>
-                    <AlertDialogContent>
-                      <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                        Is your order completed?
-                      </AlertDialogHeader>
-
-                      <AlertDialogBody>
-                        Are you sure? You can't undo this action afterwards.
-                      </AlertDialogBody>
-
-                      <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={onClose}>
-                          Cancel
-                        </Button>
-                        <Button
-                          colorScheme="green"
-                          onClick={() => handleCompleted(info.id)}
-                          ml={3}
-                        >
-                          Complete Order
-                        </Button>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialogOverlay>
-                </AlertDialog>
-              </div>
             </div>
           </Box>
         ))}

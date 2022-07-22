@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../supabase";
-import Simple from "../components/profilebar";
+import { supabase } from "../../supabase";
+import Simple from "../../components/profilebar";
 import {
   Grid,
   IconButton,
@@ -11,8 +11,9 @@ import {
   useToast,
   useColorModeValue,
   Spacer,
-  FormControl,
+  Box,
   HStack,
+  FormLabel,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -21,6 +22,7 @@ export default function UpdateOrder() {
   const [list, setList] = useState([]);
   const [newItem, setNewItem] = useState("");
   const [price, setPrice] = useState("");
+  const [units, setUnits] = useState("");
   const user = supabase.auth.user();
   const toast = useToast();
 
@@ -40,19 +42,27 @@ export default function UpdateOrder() {
 
   const addItem = async (itemName) => {
     if (itemName === "" && price === "") {
-      alert("Item Name and price cannot be empty!");
+      alert("Item Name and Price cannot be empty!");
     } else if (itemName === "") {
       alert("Item Name cannot be empty");
     } else if (price === "") {
       alert("Price cannot be empty");
+    } else if (units === "/") {
+      alert("Please fill up the units for ur item");
     } else {
       let { data: item } = await supabase
         .from("orderList")
-        .insert({ item: itemName, user_id: user.id, price: price })
+        .insert({
+          item: itemName,
+          user_id: user.id,
+          price: price,
+          units: units,
+        })
         .single();
       setList([...list, item]);
       setNewItem("");
       setPrice("");
+      setUnits("/");
 
       toast({
         title: "Item added",
@@ -122,32 +132,51 @@ export default function UpdateOrder() {
           my={12}
         >
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-            <Input
-              type="text"
-              required
-              placeholder="Add item here"
-              value={newItem}
-              onChange={(event) => {
-                setNewItem(event.target.value);
-              }}
-            />
+            <Box>
+              <FormLabel> Item Name</FormLabel>
+              <Input
+                type="text"
+                required
+                placeholder="Add item here"
+                value={newItem}
+                onChange={(event) => {
+                  setNewItem(event.target.value);
+                }}
+              />
+            </Box>
+            <Box>
+              <FormLabel> Price </FormLabel>
+              <Input
+                type="number"
+                min="1"
+                step="any"
+                placeholder="Insert price here"
+                value={price}
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                }}
+              />
+            </Box>
 
-            <Input
-              type="number"
-              min="1"
-              step="any"
-              placeholder="Insert price here"
-              value={price}
-              onChange={(event) => {
-                setPrice(event.target.value);
-              }}
-            />
-            <Button onClick={() => addItem(newItem)}> Add </Button>
+            <Box>
+              <FormLabel> Units (i.e per kg) </FormLabel>
+              <HStack>
+                <Input
+                  type="text"
+                  value={units || "/"}
+                  onChange={(event) => {
+                    setUnits(event.target.value);
+                  }}
+                />
+                <Button onClick={() => addItem(newItem)}> Add </Button>
+              </HStack>
+            </Box>
           </Grid>
 
           {list.map((item) => (
             <Grid templateColumns="repeat(3, 1fr)" gap={6}>
               <li key={item.id}>{item.item}</li>${item.price}
+              {item.units}
               <IconButton
                 icon={<DeleteIcon />}
                 onClick={() => deleteItem(item.id)}

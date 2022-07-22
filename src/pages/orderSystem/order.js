@@ -1,18 +1,26 @@
-import Simple from "../components/profilebar";
-import { Button, HStack, Spacer, } from "@chakra-ui/react";
-import React, {useState, useEffect } from "react";
+import Simple from "../../components/profilebar";
+import { Button, HStack, Spacer } from "@chakra-ui/react";
+import React from "react";
 import { Link } from "react-router-dom";
-import OrderCard from "../components/orderCard"; 
-
+import OrderCard from "../../components/orderCard";
 
 export default function Order() {
-
   return (
     <div>
       <Simple />
       <HStack>
-      <Spacer/> 
-      <Button
+        <Button
+          bg={"blue.400"}
+          rounded={"full"}
+          color={"white"}
+          _hover={{ bg: "blue.500" }}
+          as={Link}
+          to="/order/completedorders"
+        >
+          View completed orders
+        </Button>
+        <Spacer />
+        <Button
           bg={"blue.400"}
           rounded={"full"}
           color={"white"}
@@ -22,7 +30,7 @@ export default function Order() {
         >
           Update Order List
         </Button>
-      
+
         <Button
           bg={"blue.400"}
           rounded={"full"}
@@ -31,11 +39,11 @@ export default function Order() {
           as={Link}
           to="/order/addorder"
         >
-          Add order 
+          Add order
         </Button>
-        </HStack>
+      </HStack>
 
-        <OrderCard /> 
+      <OrderCard />
     </div>
   );
 }

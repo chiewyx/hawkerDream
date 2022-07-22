@@ -1,4 +1,4 @@
-import Simple from "../components/profilebar";
+import Simple from "../../components/profilebar";
 import {
   Grid,
   Stack,
@@ -9,7 +9,6 @@ import {
   useColorModeValue,
   Text,
   IconButton,
-  Icon,
   HStack,
   Spacer,
   FormControl,
@@ -18,7 +17,7 @@ import {
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../supabase";
+import { supabase } from "../../supabase";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 export default function AddOrder() {
@@ -47,7 +46,6 @@ export default function AddOrder() {
       .select("*")
       .eq("user_id", user.id)
       .order("item", true);
-
     setList(itemList);
   };
 
@@ -57,8 +55,6 @@ export default function AddOrder() {
     if (event.target.checked) {
       setOrderedItems([...orderedItems, item.item]);
       checked[index] = true;
-
-      // setTotalAmt(totalAmt + item.price);
       // add item to orderedItems array
     } else {
       // remove item from orderedItems array
@@ -66,57 +62,8 @@ export default function AddOrder() {
         cartItem.filter((i) => i.item !== item.item)
       );
       checked[index] = false;
-      // setTotalAmt((total) => total - item.price);
     }
   };
-
-  /* 
-  const [orderInfo, setOrderInfo] = useState({
-    items: [],
-    response: [],
-  });
-
-  
-
-  const handleCheck = (e) => {
-    // Destructuring
-    const { value, checked } = e.target;
-    const { items } = orderInfo;
-
-    console.log(`${value} is ${checked}`);
-
-    // Case 1 : The user checks the box
-    if (checked) {
-      setOrderInfo({
-        items: [...items, value],
-        response: [...items, value],
-      });
-    }
-
-    // Case 2  : The user unchecks the box
-    else {
-      setOrderInfo({
-        items: items.filter((e) => e !== value),
-        response: items.filter((e) => e !== value),
-      });
-    }
-  };
-  */
-
-  /*
-  const handleQuantity = (item, event, index) => {
-    const newQuantity = [...quantity];
-    newQuantity[index] = event.target.value;
-    setQuantity(newQuantity);
-
-    if (checked[index]) {
-      setTotalAmt(totalAmt + (item.price * event.target.value));
-    } else {
-      setTotalAmt((total) => total - (item.price * event.target.value));
-    }
-  };
-
-  */
 
   const decreaseQuantity = (item, index) => {
     const newQuantity = [...quantity];
@@ -204,23 +151,22 @@ export default function AddOrder() {
         </Button>
       </HStack>
       <form onSubmit={insertForm}>
-      <Flex
-        minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
-      >
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"xl"}
-          bg={useColorModeValue("white", "gray.700")}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={12}
+        <Flex
+          minH={"100vh"}
+          align={"center"}
+          justify={"center"}
+          bg={useColorModeValue("gray.50", "gray.800")}
         >
-         
+          <Stack
+            spacing={4}
+            w={"full"}
+            maxW={"xl"}
+            bg={useColorModeValue("white", "gray.700")}
+            rounded={"xl"}
+            boxShadow={"lg"}
+            p={6}
+            my={12}
+          >
             <Grid templateColumns="repeat(1,1fr)" gap={6}>
               <FormControl isRequired>
                 <FormLabel htmlFor="customerName">Customer name</FormLabel>
@@ -298,6 +244,7 @@ export default function AddOrder() {
                     {item.item}
                   </Box>
                   ${item.price}
+                  {item.units}
                   <Box>
                     <IconButton
                       icon={<MinusIcon />}
@@ -332,9 +279,8 @@ export default function AddOrder() {
             >
               Upload order
             </Button>
-          
-        </Stack>
-      </Flex>
+          </Stack>
+        </Flex>
       </form>
     </div>
   );
