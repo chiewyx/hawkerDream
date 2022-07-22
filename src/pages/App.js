@@ -1,19 +1,18 @@
-import SignupCard from "./signup";
-import LoginCard from "./login";
-import Dashboard from "./dashboard";
+import SignupCard from "./landingPages/signup";
+import LoginCard from "./landingPages/login";
+import Dashboard from "./usersPages/dashboard";
 import { Routes, Route } from "react-router-dom";
 import { RequireAuth } from "../components/privateRoute";
-import LandingPage from "./landing";
-import UserProfileEdit from "./update";
+import LandingPage from "./landingPages/landing";
+import UserProfileEdit from "./usersPages/update";
 import SplitWithImage from "./features";
 import SplitWithImag from "./featuresupplier";
 
-import Order from "./order";
-import UpdateOrder from "./newOrder";
-import AddOrder from "./addOrder";
-import CompletedOrder from "./completedOrder"; 
+import Order from "./orderSystem/order";
+import UpdateOrder from "./orderSystem/newOrder";
+import AddOrder from "./orderSystem/addOrder"; 
+import CompletedOrder from "./orderSystem/completedOrder";
 
-import Invoice from "./invoice";
 import JanInvoice from "./months/january";
 import FebInvoice from "./months/february";
 import MarInvoice from "./months/march";
@@ -26,16 +25,15 @@ import SeptInvoice from "./months/september";
 import NovInvoice from "./months/november";
 import OctInvoice from "./months/october";
 import DecInvoice from "./months/december";
-import UpdateInvoice from "./newInvoice";
-import DisplayMonth from "./month";
-import DisplayYear from "./year";
+import UpdateInvoice from "./invoiceSystem/newInvoice";
+import DisplayMonth from "./invoiceSystem/month";
+import DisplayYear from "./invoiceSystem/year";
 
 import Marketplace from "./marketplace";
 
 export default function App() {
   return (
     <div className="App">
-      {/* Add routes here👇 */}
       <Routes>
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/signup" exact element={<SignupCard />} />
@@ -76,7 +74,11 @@ export default function App() {
         <Route path="/order/updateorder" exact element={<UpdateOrder />} />
         <Route path="/order/addorder" exact element={<AddOrder />} />
         <Route path="/order" exact element={<Order />} />
-        <Route path="/order/completedorders" exact element={<CompletedOrder />} />
+        <Route
+          path="/order/completedorders"
+          exact
+          element={<CompletedOrder />}
+        />
         <Route path="/marketplace" exact element={<Marketplace />} />
       </Routes>
     </div>

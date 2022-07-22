@@ -1,4 +1,3 @@
-//import { ReactNode } from 'react';
 import {
   Box,
   Flex,
@@ -20,10 +19,8 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { supabase } from "../supabase";
 import { useNavigate } from "react-router-dom";
-import mainlogo from "../logo.jpg";
 import { Link as ReactRouterLink } from "react-router-dom";
 
-//const Links = ["Dashboard", "Invoice Management", "Marketplace"];
 const Links = [];
 const NAV_ITEMS = [
   {
@@ -54,7 +51,6 @@ const NavLink = ({ label, to }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    //href={"#"}
     to={to}
   >
     {label}
@@ -65,7 +61,6 @@ export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   async function handleSignOut() {
-    // @TODO: add sign out logic
     await supabase.auth.signOut();
     navigate("/login");
   }

@@ -13,29 +13,23 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
 import groceries from "../groceries.svg";
 import { supabase } from "../supabase";
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
 import MktOrder from "./mktOrder";
 
 export default function ProductTemplate(props) {
   const [orders, setOrders] = useState([]);
 
   const getOrder = useCallback(async () => {
-    //setLoading(true);
-    //const user = supabase.auth.user();
-    const { data, error, status } = await supabase
+    const { data } = await supabase
       .from("orderList")
       .select("item")
       .eq("user_id", `${props.userid}`);
 
-    //const newData = Array.from(data);
     setOrders(data);
   }, [props.userid]);
 

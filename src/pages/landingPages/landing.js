@@ -1,20 +1,17 @@
-import WithSubnavigation from "../components/navbar";
+import WithSubnavigation from "../../components/navbar";
 import {
-  //Square,
   Center,
   Spacer,
   Grid,
-  //GridItem,
   VStack,
-  Button,
   Text,
   Flex,
   Image,
   HStack,
 } from "@chakra-ui/react";
-import invoice from "../invoice.jpg";
-import marketplace from "../marketplace.jpg";
-import order from "../order.jpg";
+import invoice from "../../invoice.jpg";
+import marketplace from "../../marketplace.jpg";
+import order from "../../order.jpg";
 import { Box } from "@chakra-ui/react";
 
 function Headers() {
@@ -158,7 +155,7 @@ function FeaturesSupplier() {
 function Marketplace() {
   return (
     <section id="section-four">
-    <Box bg="orange.50" w="100%" p={20} color="white">
+      <Box bg="orange.50" w="100%" p={20} color="white">
         <Spacer />
       </Box>
       <HStack spacing="24px" align="start">

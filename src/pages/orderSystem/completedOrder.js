@@ -1,33 +1,19 @@
 import {
   Box,
   Center,
-  useColorModeValue,
-  Heading,
   Text,
-  Stack,
-  Image,
   Button,
   Grid,
   Spacer,
   HStack,
-  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import folder from "../folder.svg";
-import { useState, useEffect, useRef } from "react";
-import { useDisclosure } from "@chakra-ui/react";
-import { supabase } from "../supabase";
-import { CheckIcon } from "@chakra-ui/icons";
-import Simple from "../components/profilebar";
+import { useState, useEffect } from "react";
+import { supabase } from "../../supabase";
+import Simple from "../../components/profilebar";
 
 export default function OrderCard() {
-  const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
-  const [newP, setP] = useState("");
-  const toast = useToast();
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
 
   useEffect(() => {
     fetchList();
@@ -42,8 +28,6 @@ export default function OrderCard() {
       .eq("id", user.id)
       .single();
 
-    //const pp = JSON.stringify(profile);
-
     if (pp.profile_type === "supplier") {
       const { data: orderList } = await supabase
         .from("orders")
@@ -51,7 +35,6 @@ export default function OrderCard() {
         .eq("user_id", user.id)
         .eq("completed", true)
         .order("id", true);
-      //console.log(pp);
 
       setOrderList(orderList);
     } else {
@@ -61,7 +44,7 @@ export default function OrderCard() {
         .eq("user_email", user.email)
         .eq("completed", true)
         .order("id", true);
-      //console.log(pp);
+
       setOrderList(orderList);
     }
   };

@@ -1,30 +1,14 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Grid,
-  Heading,
-  HStack,
-  Spacer,
-  TabIndicator,
-} from "@chakra-ui/react";
+import { Button, Grid } from "@chakra-ui/react";
 import ProductSimple from "../components/invoiceCard";
 import Simple from "../components/profilebar";
 import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
-import { Link, Link as ReactRouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Invoice() {
-  const user = supabase.auth.user();
-  const session = supabase.auth.session();
-  const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  //const [avatar_url, setAvatarUrl] = useState();
-  //const [profile_type, setProfileType] = useState();
-  //const [showPassword, setShowPassword] = useState(false);
 
   async function getResult() {
-    //setLoading(true);
     const user = supabase.auth.user();
     const { data, error, status } = await supabase
       .from("invoices")
@@ -43,7 +27,7 @@ export default function Invoice() {
   return (
     <div>
       <Simple />
-      <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
+      <Grid templateColumns="repeat(3, 1fr)" spacing={20} px={20}>
         {results.map((result) => (
           <ProductSimple
             name={result.month}
@@ -51,7 +35,7 @@ export default function Invoice() {
             supplier={result.supplier}
           />
         ))}
-        
+
         <Button
           bg={"blue.400"}
           rounded={"full"}
