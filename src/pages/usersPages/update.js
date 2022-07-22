@@ -13,17 +13,14 @@ import {
   AvatarBadge,
   IconButton,
   Center,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
-import { useAuth } from "../contexts/auth";
-import { supabase } from "../supabase";
+import { supabase } from "../../supabase";
 import { useState, useEffect } from "react";
-import Simple from "../components/profilebar";
+import Simple from "../../components/profilebar";
 
 export default function UserProfileEdit() {
-  const user = supabase.auth.user();
-  const session = supabase.auth.session();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState();
   const [first_name, setFirstName] = useState();
@@ -32,18 +29,18 @@ export default function UserProfileEdit() {
   const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
   const [description, setDescription] = useState();
-  //const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
 
   async function getProfile() {
-    //e.preventDefault();
     try {
       setLoading(true);
       const user = supabase.auth.user();
 
       const { data, error, status } = await supabase
         .from("user_profiles")
-        .select(`username, first_name, last_name, profile_type, products_sold, description`)
+        .select(
+          `username, first_name, last_name, profile_type, products_sold, description`
+        )
         .eq("id", user.id)
         .single();
 
@@ -58,7 +55,7 @@ export default function UserProfileEdit() {
         setAvatarUrl(data.avatar_url);
         setProfileType(data.profile_type);
         setProductSold(data.products_sold);
-        setDescription(data.description)
+        setDescription(data.description);
       }
     } catch (error) {
       alert(error.message);
@@ -165,25 +162,25 @@ export default function UserProfileEdit() {
               />
             </FormControl>
             <FormControl id="itemsSold" isRequired>
-                <FormLabel>For Suppliers: What products do you sell?</FormLabel>
-                <Input
-                  placeholder="poultry, vegetables, etc."
-                  _placeholder={{ color: "gray.500" }}
-                  type="text"
-                  value={products_sold || ""}
-                  onChange={(e) => setProductSold(e.target.value)}
-                />
-              </FormControl>
-              <FormControl id="description" isRequired>
-                <FormLabel>A short description of your store/business</FormLabel>
-                <Input
-                  placeholder="Cheapest and highest quality beef, etc."
-                  _placeholder={{ color: "gray.500" }}
-                  type="text"
-                  value={description || ""}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </FormControl>
+              <FormLabel>For Suppliers: What products do you sell?</FormLabel>
+              <Input
+                placeholder="poultry, vegetables, etc."
+                _placeholder={{ color: "gray.500" }}
+                type="text"
+                value={products_sold || ""}
+                onChange={(e) => setProductSold(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="description" isRequired>
+              <FormLabel>A short description of your store/business</FormLabel>
+              <Input
+                placeholder="Cheapest and highest quality beef, etc."
+                _placeholder={{ color: "gray.500" }}
+                type="text"
+                value={description || ""}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FormControl>
             <HStack>
               <FormControl id="firstName" isRequired>
                 <FormLabel>First Name</FormLabel>

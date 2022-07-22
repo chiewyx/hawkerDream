@@ -1,6 +1,6 @@
-import Simple from "../components/profilebar";
-import { useState, useEffect } from "react";
-import { supabase } from "../supabase";
+import Simple from "../../components/profilebar";
+import { useState } from "react";
+import { supabase } from "../../supabase";
 import {
   Button,
   Flex,
@@ -11,15 +11,10 @@ import {
   Stack,
   useColorModeValue,
   HStack,
-  Avatar,
   Select,
-  AvatarBadge,
-  IconButton,
-  Center,
   useToast,
 } from "@chakra-ui/react";
-import { SmallCloseIcon } from "@chakra-ui/icons";
-import UploadImage from "../components/uploadImg";
+import UploadImage from "../../components/uploadImg";
 
 export default function UpdateInvoice() {
   const [loading, setLoading] = useState(true);
@@ -63,7 +58,7 @@ export default function UpdateInvoice() {
         status: "success",
         duration: 9000,
         isClosable: true,
-      })
+      });
     }
   }
 
@@ -172,17 +167,6 @@ export default function UpdateInvoice() {
                   bg: "blue.500",
                 }}
                 type="submit"
-                /* 
-                onClick={() =>
-                  toast({
-                    title: "Invoice uploaded",
-                    description: "You've uploaded your invoice successfully",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                  })
-                }
-                */ 
               >
                 Update
               </Button>

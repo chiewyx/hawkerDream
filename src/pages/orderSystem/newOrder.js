@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../supabase";
-import Simple from "../components/profilebar";
+import { supabase } from "../../supabase";
+import Simple from "../../components/profilebar";
 import {
   Grid,
   IconButton,
@@ -11,7 +11,6 @@ import {
   useToast,
   useColorModeValue,
   Spacer,
-  FormControl,
   Box,
   HStack,
   FormLabel,
@@ -53,12 +52,17 @@ export default function UpdateOrder() {
     } else {
       let { data: item } = await supabase
         .from("orderList")
-        .insert({ item: itemName, user_id: user.id, price: price, units:units })
+        .insert({
+          item: itemName,
+          user_id: user.id,
+          price: price,
+          units: units,
+        })
         .single();
       setList([...list, item]);
       setNewItem("");
       setPrice("");
-      setUnits("/")
+      setUnits("/");
 
       toast({
         title: "Item added",
@@ -156,21 +160,17 @@ export default function UpdateOrder() {
 
             <Box>
               <FormLabel> Units (i.e per kg) </FormLabel>
-              <HStack> 
-              <Input
-                type="text"
-                
-                value={units || "/"}
-                onChange={(event) => {
-                  setUnits(event.target.value);
-                }}
-              />
-               <Button onClick={() => addItem(newItem)}> Add </Button>
-               </HStack>
+              <HStack>
+                <Input
+                  type="text"
+                  value={units || "/"}
+                  onChange={(event) => {
+                    setUnits(event.target.value);
+                  }}
+                />
+                <Button onClick={() => addItem(newItem)}> Add </Button>
+              </HStack>
             </Box>
-          
-           
-           
           </Grid>
 
           {list.map((item) => (

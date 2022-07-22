@@ -18,7 +18,6 @@ import { useDisclosure } from "@chakra-ui/react";
 import { supabase } from "../supabase";
 
 export default function OrderCard() {
-  const user = supabase.auth.user();
   const [orderList, setOrderList] = useState([]);
   const toast = useToast();
 
@@ -31,14 +30,11 @@ export default function OrderCard() {
 
   const fetchList = async () => {
     const user = supabase.auth.user();
-    // get the orders keyed in manually by the suppliers
     const { data: pp } = await supabase
       .from("user_profiles")
       .select("profile_type")
       .eq("id", user.id)
       .single();
-
-    //const pp = JSON.stringify(profile);
 
     if (pp.profile_type === "supplier") {
       const { data: orderList } = await supabase
@@ -47,7 +43,6 @@ export default function OrderCard() {
         .eq("user_id", user.id)
         .eq("completed", false)
         .order("id", true);
-      //console.log(pp);
 
       setOrderList(orderList);
     } else {
@@ -57,7 +52,7 @@ export default function OrderCard() {
         .eq("user_email", user.email)
         .eq("completed", false)
         .order("id", true);
-      //console.log(pp);
+
       setOrderList(orderList);
     }
   };

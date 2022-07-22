@@ -20,9 +20,9 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { supabase } from "../supabase";
+import { supabase } from "../../supabase";
 import { useNavigate } from "react-router-dom";
-import WithSubnavigation from "../components/navbar";
+import WithSubnavigation from "../../components/navbar";
 import { Link as ReactRouterLink } from "react-router-dom";
 
 export default function SignupCard() {

@@ -1,8 +1,8 @@
-import Simple from "../components/profilebar";
+import Simple from "../../components/profilebar";
 import { Button, HStack, Spacer } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import OrderCard from "../components/orderCard";
+import OrderCard from "../../components/orderCard";
 
 export default function Order() {
   return (

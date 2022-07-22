@@ -1,6 +1,5 @@
-import Simple from "../components/profilebar";
-import { useAuth } from "../contexts/auth";
-import { supabase } from "../supabase";
+import Simple from "../../components/profilebar";
+import { supabase } from "../../supabase";
 import {
   Box,
   Text,
@@ -10,27 +9,18 @@ import {
   VStack,
   useBreakpointValue,
   Heading,
-  Center,
-  HStack,
-  Spacer,
   Grid,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-//import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-//import mainlogo from "../logo.jpg";
-import UserProfileEdit from "./update";
 import { CheckCircleIcon, CloseIcon, CalendarIcon } from "@chakra-ui/icons";
 
 export default function Dashboard() {
-  //const { user } = useAuth()
   const user = supabase.auth.user();
-  const session = supabase.auth.session();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState();
   const [first_name, setFirstName] = useState();
   const [last_name, setLastName] = useState();
-  //const [avatar_url, setAvatarUrl] = useState();
   const [profile_type, setProfileType] = useState();
   const [orderList, setOrderList] = useState([]);
   const [incompleteNum, setIncompleteNum] = useState();
@@ -38,10 +28,8 @@ export default function Dashboard() {
   const today = new Date();
   const month = today.toLocaleString("default", { month: "long" });
   const [totalCost, setTotalCost] = useState("");
-  //const [showPassword, setShowPassword] = useState(false);
 
   async function getProfile() {
-    //e.preventDefault();
     try {
       setLoading(true);
       const user = supabase.auth.user();
@@ -72,16 +60,13 @@ export default function Dashboard() {
   async function getTotalCost() {
     const user = supabase.auth.user();
     // get the orders keyed in manually by the suppliers
-    const { data: pp } = await supabase
+    const { data: totalCost } = await supabase
       .from("invoices")
       .select("cost")
       .eq("month", month)
       .eq("user_id", user.id);
 
-    //const pp = JSON.stringify(profile);
-    console.log(pp); 
-
-    setTotalCost(pp.reduce((partialSum, a) => partialSum + a.cost, 0));
+    setTotalCost(totalCost.reduce((partialSum, a) => partialSum + a.cost, 0));
   }
 
   async function fetchIncomplete() {
@@ -276,12 +261,15 @@ export default function Dashboard() {
               textAlign="center"
             >
               <CalendarIcon boxSize={"50px"} color={"blue.500"} mt={2} mb={5} />
-             
-              <p> Your total invoice amount: 
-              <Heading as="h2" size="xl">
-              ${totalCost}
-              </Heading> </p>
-             
+
+              <p>
+                {" "}
+                Your total invoice amount:
+                <Heading as="h2" size="xl">
+                  ${totalCost}
+                </Heading>{" "}
+              </p>
+
               <Text
                 size="lg"
                 color={"gray.500"}
@@ -289,10 +277,8 @@ export default function Dashboard() {
                 to={"/invoice/" + month}
               >
                 {" "}
-                
                 View your invoices for {month}
               </Text>
-            
             </Box>
           </Grid>
         </VStack>

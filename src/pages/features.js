@@ -15,37 +15,8 @@ import {
 } from "@chakra-ui/react";
 
 import invoice from "../invoice.jpg";
-import hawkerInvoice from "../hawkerInvoice.jpg"
+import hawkerInvoice from "../hawkerInvoice.jpg";
 import WithSubnavigation from "../components/navbar";
-
-// import { ReactElement } from 'react';
-/*
-  interface FeatureProps {
-    text: string;
-    iconBg: string;
-    icon?: ReactElement;
-  }
-  */
-
-/*
-const Feature = ({ text, icon, iconBg }) => {
-  return (
-    <Stack direction={"row"} align={"center"}>
-      <Flex
-        w={8}
-        h={8}
-        align={"center"}
-        justify={"center"}
-        rounded={"full"}
-        bg={iconBg}
-      >
-        {icon}
-      </Flex>
-      <Text fontWeight={600}>{text}</Text>
-    </Stack>
-  );
-};
-*/
 
 function Invoice() {
   const { isOpen, onToggle } = useDisclosure();
@@ -66,21 +37,21 @@ function Invoice() {
       </Center>
       <Collapse in={isOpen} animateOpacity>
         <Box p="40px" color="black" mt="4" bg="white" rounded="md" shadow="md">
-        <HStack>
-        <Image
-            rounded={"md"}
-            alt={"feature image"}
-            src={hawkerInvoice}
-            boxSize= "300px"
-          />
-          <Spacer/> 
-          <Image
-            rounded={"md"}
-            alt={"feature image"}
-            src={invoice}
-            width={700}
-            height={400}
-          />
+          <HStack>
+            <Image
+              rounded={"md"}
+              alt={"feature image"}
+              src={hawkerInvoice}
+              boxSize="300px"
+            />
+            <Spacer />
+            <Image
+              rounded={"md"}
+              alt={"feature image"}
+              src={invoice}
+              width={700}
+              height={400}
+            />
           </HStack>
         </Box>
       </Collapse>
@@ -116,7 +87,7 @@ function Chat() {
             <Spacer /> HawkerTown allows you to connect with your suppliers on{" "}
             <strong> one and only one </strong> platform!{" "}
           </Text>
-          <Spacer/> 
+          <Spacer />
           <Image
             rounded={"md"}
             alt={"feature image"}

@@ -1,19 +1,15 @@
 import {
   AspectRatio,
   Box,
-  BoxProps,
   Container,
-  forwardRef,
   Heading,
   Input,
   Stack,
   Text,
-  Button,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import { supabase } from "../supabase";
-import { useState, useEffect } from "react";
 
 const first = {
   rest: {
@@ -113,14 +109,10 @@ export default function UploadImage(props) {
   const controls = useAnimation();
   const startAnimation = () => controls.start("hover");
   const stopAnimation = () => controls.stop();
-  const [uploading, setUploading] = useState(false);
-  const [image, setImage] = useState("");
   const toast = useToast();
   const user = supabase.auth.user();
 
   const uploadInvoice = async (event) => {
-    //setUploading(true);
-
     if (!event.target.files || event.target.files.length === 0) {
       throw new Error("You must select a file to upload.");
     }
@@ -129,19 +121,19 @@ export default function UploadImage(props) {
     const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${fileName}`;
-    const fileFolder = `${user.id}.${filePath}`
+    const fileFolder = `${user.id}.${filePath}`;
 
     let { error: uploadError } = await supabase.storage
       .from("invoices")
       .upload(`${user.id}/${props.month}/${props.supplier}`, file);
 
-      toast({
-        title: "file uploaded",
-        description: "You've uploaded your file successfully",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      })
+    toast({
+      title: "file uploaded",
+      description: "You've uploaded your file successfully",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -216,7 +208,6 @@ export default function UploadImage(props) {
                 onDragEnter={startAnimation}
                 onDragLeave={stopAnimation}
                 onChange={uploadInvoice}
-                
               />
             </Box>
           </Box>

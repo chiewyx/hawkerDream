@@ -1,26 +1,17 @@
-import Simple from "../components/profilebar";
+import Simple from "../../components/profilebar";
 import { useState, useEffect } from "react";
-import { supabase } from "../supabase";
-import {
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  HStack,
-  TabIndicator,
-} from "@chakra-ui/react";
-import ProductYear from "../components/yearCard";
+import { supabase } from "../../supabase";
+import { Grid } from "@chakra-ui/react";
+import ProductYear from "../../components/yearCard";
 
 export default function DisplayYear() {
   const [results, setResults] = useState([]);
-  const user = supabase.auth.user();
   async function getResult() {
-    //setLoading(true);
     const user = supabase.auth.user();
     const { data, error, status } = await supabase
       .from("invoices")
       .select(`year`)
-      .eq("user_id", user.id)
+      .eq("user_id", user.id);
 
     const newData = Array.from(data);
     setResults(newData);
