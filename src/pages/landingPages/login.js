@@ -42,7 +42,7 @@ export default function SimpleCard() {
   return (
     <div>
       <WithSubnavigation />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <Flex
           minH={"100vh"}
           align={"top"}
@@ -76,13 +76,13 @@ export default function SimpleCard() {
                 p={8}
               >
                 <Stack spacing={4}>
-                  <FormControl id="email">
+                  <FormControl id="email" >
                     <FormLabel>Email address</FormLabel>
-                    <Input type="email" ref={emailRef} />
+                    <Input type="email" ref={emailRef} data-testid="email-input"/>
                   </FormControl>
-                  <FormControl id="password">
+                  <FormControl id="password" >
                     <FormLabel>Password</FormLabel>
-                    <Input type="password" ref={passwordRef} />
+                    <Input type="password" ref={passwordRef} data-testid="password-input"/>
                   </FormControl>
                   <Stack spacing={10}>
                     <Stack
@@ -99,6 +99,7 @@ export default function SimpleCard() {
                       _hover={{
                         bg: "blue.500",
                       }}
+                      data-testid="form"
                     >
                       Sign in
                     </Button>
