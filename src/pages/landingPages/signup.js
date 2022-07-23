@@ -16,7 +16,7 @@ import {
   Text,
   Select,
   useColorModeValue,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -53,7 +53,14 @@ export default function SignupCard() {
       alert("error signing in");
     } else {
       // Redirect user to Dashboard
-      navigate("/login");
+      toast({
+        title: "Sign up successful",
+        description: "Please verify your email!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setTimeout(() => navigate("/login"), 1000);
     }
   }
   return (
@@ -111,6 +118,7 @@ export default function SignupCard() {
                           type="text"
                           value={first_name}
                           onChange={(e) => setFirstName(e.target.value)}
+                          data-testid="first name"
                         />
                       </FormControl>
                     </Box>
@@ -121,13 +129,18 @@ export default function SignupCard() {
                           type="text"
                           value={last_name}
                           onChange={(e) => setLastName(e.target.value)}
+                          data-testid="last name"
                         />
                       </FormControl>
                     </Box>
                   </HStack>
                   <FormControl id="email" isRequired>
                     <FormLabel htmlFor="email">Email address</FormLabel>
-                    <Input type="email" ref={emailRef} />
+                    <Input
+                      type="email"
+                      ref={emailRef}
+                      data-testid="email-input"
+                    />
                   </FormControl>
                   <FormControl id="password" isRequired>
                     <FormLabel htmlFor="password">Password</FormLabel>
@@ -135,6 +148,7 @@ export default function SignupCard() {
                       <Input
                         type={showPassword ? "text" : "password"}
                         ref={passwordRef}
+                        data-testid="password"
                       />
                       <InputRightElement h={"full"}>
                         <Button
@@ -158,15 +172,8 @@ export default function SignupCard() {
                       _hover={{
                         bg: "blue.500",
                       }}
-                      onClick={() =>
-                  toast({
-                    title: "Sign up successful",
-                    description: "Please verify your email!",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                  })
-                }
+                      data-testid="submit button"
+                    
                     >
                       Sign up
                     </Button>

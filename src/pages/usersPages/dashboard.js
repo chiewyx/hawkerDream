@@ -181,7 +181,7 @@ export default function Dashboard() {
             <VStack
               w={"full"}
               justify={"center"}
-              px={useBreakpointValue({ base: 4, md: 8 })}
+              px={8}
               bgGradient={"linear(to-r, blackAlpha.600, transparent)"}
             >
               <Stack maxW={"2xl"} align={"flex-start"} spacing={6}>
@@ -189,7 +189,7 @@ export default function Dashboard() {
                   color={"white"}
                   fontWeight={700}
                   lineHeight={1.2}
-                  fontSize={useBreakpointValue({ base: "3xl", md: "4xl" })}
+                  fontSize={"4xl"}
                 >
                   Welcome back, {first_name}
                 </Text>
@@ -222,7 +222,7 @@ export default function Dashboard() {
               <Heading as="h2" size="xl" mt={6} mb={2}>
                 {incompleteNum} incomplete orders
               </Heading>
-              <Text size="lg" color={"gray.500"} as={Link} to="/order">
+              <Text size="lg" color={"gray.500"} as={Link} to="/order" data-testid="incomplete orders">
                 {" "}
                 View incomplete orders
               </Text>
@@ -246,6 +246,7 @@ export default function Dashboard() {
                 color={"gray.500"}
                 as={Link}
                 to={"/order/completedorders"}
+                data-testid="completed orders"
               >
                 {" "}
                 View your completed orders
@@ -275,6 +276,7 @@ export default function Dashboard() {
                 color={"gray.500"}
                 as={Link}
                 to={"/invoice/" + month}
+                data-testid="invoice"
               >
                 {" "}
                 View your invoices for {month}
