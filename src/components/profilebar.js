@@ -32,13 +32,13 @@ const NAV_ITEMS = [
     to: "/invoice",
   },
   {
-    label: "Marketplace",
-    to: "/marketplace",
-  },
-  {
     label: "Orders",
     to: "/order",
   },
+  {
+    label: "Marketplace",
+    to: "/marketplace",
+  }
 ];
 
 const NavLink = ({ label, to }) => (

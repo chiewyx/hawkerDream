@@ -70,7 +70,9 @@ export default function AddOrder() {
     newQuantity[index] = newQuantity[index] === 0 ? 0 : newQuantity[index] - 1;
     setQuantity(newQuantity);
 
-    setTotalAmt(totalAmt - item.price);
+    if (newQuantity[index] !== 0) {
+      setTotalAmt(totalAmt - item.price);
+    }
   };
 
   const increaseQuantity = (item, index) => {

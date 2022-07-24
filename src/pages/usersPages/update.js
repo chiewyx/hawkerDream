@@ -96,8 +96,15 @@ export default function UserProfileEdit() {
       alert(error.message);
     } finally {
       setLoading(false);
+      toast({
+        title: "Profile updated",
+        description: "You've updated your profile successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
     }
-  }
+   }
 
   return (
     <div>
@@ -222,15 +229,6 @@ export default function UserProfileEdit() {
                   bg: "blue.500",
                 }}
                 type="submit"
-                onClick={() =>
-                  toast({
-                    title: "Profile updated",
-                    description: "You've updated your profile successfully",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                  })
-                }
               >
                 Update
               </Button>

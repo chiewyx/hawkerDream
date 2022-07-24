@@ -14,9 +14,11 @@ import Simple from "../../components/profilebar";
 
 export default function OrderCard() {
   const [orderList, setOrderList] = useState([]);
+  const [profileType, setProfileType] = useState("");
 
   useEffect(() => {
     fetchList();
+    filterButtons();
   }, []);
 
   const fetchList = async () => {
@@ -49,35 +51,77 @@ export default function OrderCard() {
     }
   };
 
+  const filterButtons = async () => {
+    const user = supabase.auth.user();
+    const { data: pp } = await supabase
+      .from("user_profiles")
+      .select("profile_type")
+      .eq("id", user.id)
+      .single();
+
+    setProfileType(pp.profile_type);
+  };
+
+  function Helper() {
+    if (profileType === "supplier") {
+      return (
+        <HStack>
+          <Button
+            bg={"blue.400"}
+            rounded={"full"}
+            color={"white"}
+            _hover={{ bg: "blue.500" }}
+            as={Link}
+            to="/order/completedorders"
+          >
+            View completed orders
+          </Button>
+          <Spacer />
+          <Button
+            bg={"blue.400"}
+            rounded={"full"}
+            color={"white"}
+            _hover={{ bg: "blue.500" }}
+            as={Link}
+            to="/order/updateorder"
+          >
+            Update Order List
+          </Button>
+          <Button
+            bg={"blue.400"}
+            rounded={"full"}
+            color={"white"}
+            _hover={{ bg: "blue.500" }}
+            as={Link}
+            to="/order/addorder"
+          >
+            Add order
+          </Button>
+        </HStack>
+      );
+    } else {
+      return (
+        <HStack>
+          <Spacer />
+          <Button
+            bg={"blue.400"}
+            rounded={"full"}
+            color={"white"}
+            _hover={{ bg: "blue.500" }}
+            as={Link}
+            to="/order"
+          >
+            View Orders
+          </Button>
+        </HStack>
+      );
+    }
+  }
+
   return (
     <div>
       <Simple />
-
-      <HStack>
-        <Spacer />
-
-        <Button
-          bg={"blue.400"}
-          rounded={"full"}
-          color={"white"}
-          _hover={{ bg: "blue.500" }}
-          as={Link}
-          to="/order/updateorder"
-        >
-          Update Order List
-        </Button>
-
-        <Button
-          bg={"blue.400"}
-          rounded={"full"}
-          color={"white"}
-          _hover={{ bg: "blue.500" }}
-          as={Link}
-          to="/order/addorder"
-        >
-          Add order
-        </Button>
-      </HStack>
+      <Helper />
 
       <Center>
         <Box bg="red" w="30%" p={4} color="white" rounded="md" align="center">
