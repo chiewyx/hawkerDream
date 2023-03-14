@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# HawkerTown
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Motivation
+Through our interactions with hawkers, we realised that many hawkers dread managing their invoices and finances as they can become confusing and tedious to keep track of and often gets very messy. Hawkers often report having trouble calculating and gathering their finances in one place, and they constantly need to update their invoices which requires tedious calculations etc. 
 
-## Available Scripts
+Another problem faced by hawkers is that they have many different suppliers for their ingredients, which makes it hard to track. Due to the ever-increasing prices of supplies, hawkers would want to have the most bang for buck. However, most of them do not have the contacts or connections, and would hence stick with their current supplier, even though the prices may no longer be justifiable.
 
-In the project directory, you can run:
+Furthermore, there are instances where hawkers report that the suppliers forgot their orders or missed out on certain supplies. It appears that suppliers also have trouble tracking their customers' orders and might forget about them which will definitely affect their reputation in the long run. Apart from that, some suppliers, especially those who just started the business, are also unable to attract enough customers due to their lack of connections, which will affect their sales. 
 
-### `npm start`
+Hence, we propose to develop a website that allows the users (hawkers and supplies) to better manage their business with the various features.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Aim
+We hope to create a web app that offers a one-stop solution for hawkers and suppliers to connect which will make running their business more efficient.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features and Timeline 
+### Completed by Milestone 2 (27 June):
+- Sign Up/Login
+    - Users (hawkers and suppliers) can create a new account or log in to an existing account
+- Invoices management system
+    - Hawkers and suppliers can upload their invoices to the system (high priority)
+    - They can organise their invoices based on months (high priority)
+    - Display the cost of each invoice (high priority) 
+    - Allows hawkers to download their uploaded invoices (medium priority)
+- Order management system 
+    - Display the detailed order list from the hawkers that made their purchase through the website. (high priority)
+    - Allow the suppliers to update their order list - add item and its price, delete item. (high priority)
+    - Allow the suppliers to track and manage incomplete orders. (high priority) 
+- Marketplace
+    - Provide a one-stop platform for the suppliers and hawkers to interact. 
+    - Allows the suppliers to upload the items they are selling and their prices. (high priority)
+    - Allows the hawkers to view the items suppliers sell easily. (high priority) 
+    - Allow the hawkers to place orders through the marketplace. (high priority) 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Completed by Milestone 3 (25 July):
+- Invoices management system
+    - Helps hawkers and suppliers to add up the current total cost based on their invoices. (medium priority)
+    - Able to delete invoices and re-upload. (high priority) 
+    - Able to download their invoices whenever they need in pdf form. (medium priority)
+- Dashboard
+    - Include a summary of invoices, orders, etc. on dashboard page for an overview (high priority)
+- Orders management system
+    - Able to view all their completed orders to keep track of their expenses and orders. (medium priority)
+    - Improve the format of the order list to make it easier for hawkers to view and understand (high priority) 
+    - Include option for suppliers to input the unit of their price such as “per kg” or “per box” 
+    - Calculate the total cost of the order placed by the hawkers and display it. (high priority) 
+    - Allow the users to update the status of the orders to be completed. (low priority)
+    - Validate the order form. (medium priority) 

@@ -1,8 +1,4 @@
-import {
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
@@ -28,7 +24,7 @@ describe("<SignupCard />", () => {
     expect(screen.getAllByRole("option").length).toBe(3);
   });
 
-  test("signup function works with correct input", async() => {
+  test("signup function works with correct input", async () => {
     render(
       <ChakraProvider>
         <BrowserRouter>
@@ -44,17 +40,17 @@ describe("<SignupCard />", () => {
     userEvent.type(inputEl, "hawkertowntest@outlook.com");
     userEvent.type(inputPw, "MengXiang080721");
     userEvent.type(inputFirst, "Thomas");
-    userEvent.type(inputLast, "Shelby")
+    userEvent.type(inputLast, "Shelby");
     userEvent.selectOptions(
       screen.getByRole("combobox"),
       screen.getByRole("option", { name: "Hawker" })
     );
-    userEvent.click(screen.getByTestId("submit button"))
+    userEvent.click(screen.getByTestId("submit button"));
 
     expect(await screen.findByText("Sign up successful")).toBeInTheDocument();
   });
 
-  test("signup function works with incorrect input", async() => {
+  test("signup function with incorrect input", async () => {
     render(
       <ChakraProvider>
         <BrowserRouter>
@@ -70,13 +66,15 @@ describe("<SignupCard />", () => {
     userEvent.type(inputEl, "hawkertowntest");
     userEvent.type(inputPw, "MengXiang080721");
     userEvent.type(inputFirst, "Thomas");
-    userEvent.type(inputLast, "Shelby")
+    userEvent.type(inputLast, "Shelby");
     userEvent.selectOptions(
       screen.getByRole("combobox"),
       screen.getByRole("option", { name: "Hawker" })
     );
-    userEvent.click(screen.getByTestId("submit button"))
+    userEvent.click(screen.getByTestId("submit button"));
 
-    await waitFor(() => expect(screen.queryByText("Sign up successful")).not.toBeInTheDocument()); 
+    await waitFor(() =>
+      expect(screen.queryByText("Sign up successful")).not.toBeInTheDocument()
+    );
   });
 });
