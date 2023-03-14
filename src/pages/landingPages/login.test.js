@@ -2,9 +2,7 @@ import {
   render,
   screen,
   fireEvent,
-  getByTestId,
   waitFor,
-  toBeDisabled,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";

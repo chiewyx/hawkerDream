@@ -25,6 +25,7 @@ export default function DisplayMonth(props) {
     <div>
       <Simple />
       <Grid templateColumns="repeat(4, 1fr)" spacing={20} px={20}>
+        
         <ProductMonth name="January" />
         <ProductMonth name="February" />
         <ProductMonth name="March" />

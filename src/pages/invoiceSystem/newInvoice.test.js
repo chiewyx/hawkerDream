@@ -1,10 +1,6 @@
 import {
   render,
   screen,
-  fireEvent,
-  getByTestId,
-  waitFor,
-  toBeDisabled,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
@@ -34,8 +30,6 @@ describe("<UpdateInvoice />", () => {
   });
 
   test("render upload image card", () => {
-    const month = "July";
-    const supplier = "D.A. food";
     render(
       <ChakraProvider>
         <BrowserRouter>
@@ -87,8 +81,6 @@ describe("<UpdateInvoice />", () => {
     );
 
     const inputY = screen.getByText("Year");
-    const inputS = screen.getByText("Supplier");
-    const inputC = screen.getByText("Cost");
     const inputItems = screen.getByText("Items purchased");
     const inputSubmit = screen.getByRole("button", { name: /Update/ });
 
